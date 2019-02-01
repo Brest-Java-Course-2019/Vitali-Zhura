@@ -1,8 +1,7 @@
 import com.epam.brest.courses.CalculatorImpl;
-import org.junit.Before;
+import org.opentest4j.AssertionFailedError;
 import org.junit.jupiter.api.*;
 import java.math.BigDecimal;
-
 
 
 public class CalculatorImplTest {
@@ -15,19 +14,10 @@ public class CalculatorImplTest {
 
     @Test
     public void Calc() throws Exception {
-
         CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculation(BigDecimal.valueOf(6.7), BigDecimal.valueOf(7.0));
-        Assertions.assertEquals(134.0, actual);
+        BigDecimal actual = calculator.Calculation(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6));
+        Assertions.assertEquals(BigDecimal.valueOf(59.4), actual);
     }
-
-    @Test
-    public void IncorrectCalc() throws Exception {
-        CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculation(BigDecimal.valueOf(6.7), BigDecimal.valueOf(7.0));
-        Assertions.assertEquals(139.0, actual);
-    }
-
 
     @AfterAll
    static void afterAll() {
