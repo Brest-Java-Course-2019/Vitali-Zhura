@@ -1,5 +1,8 @@
- language: java install: true script: - mvn install 
+ language: java 
+
+mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 jdk:
   - oraclejdk8
+script: mvn clean package
 after_success:
   - mvn clean test cobertura:cobertura coveralls:report
