@@ -8,12 +8,12 @@ public class ScannerValue {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public double scanValue (String valuedescription){
+    public static double scanValue (String valuedescription){
         Scanner scan = new Scanner(System.in);
         double scannervalue;
 
         do {
-            System.out.println("Enter "+valuedescription);
+            System.out.println("Enter "+valuedescription + ":");
             while (!scan.hasNextDouble()) { LOGGER.info("Incorrect value:");
                 scan.next();
             }

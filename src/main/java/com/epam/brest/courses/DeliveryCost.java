@@ -12,31 +12,32 @@ public class DeliveryCost {
 
         try{
 
+
+        double distance = ScannerValue.scanValue("distance");
+        double weight = ScannerValue.scanValue("weight");
+
+
+        double tarifdistance = CalculatorTarif.calculateTarif(distance, "distance");
+        double tarifweight = CalculatorTarif.calculateTarif(weight, "weight");
+
         ValueItem valueitem = new ValueItem();
-
-        double distance, weight;
-
-        ScannerValue  scannervalue = new  ScannerValue();
-
-        distance = scannervalue.scanValue("distance");
-        weight = scannervalue.scanValue("weight");
+        valueitem.setDistance(BigDecimal.valueOf(distance));
 
 
         CalculatorImpl calculator = new CalculatorImpl();
 
-        valueitem.setDistance(BigDecimal.valueOf(distance));
-        valueitem.setWeight(BigDecimal.valueOf(weight));
+        System.out.println(calculator.Calculate(valueitem.getDistance(),tarifdistance,tarifweight));
 
-        System.out.println(calculator.Calculation(valueitem.getDistance(), valueitem.getWeight()));
+
     }
         catch (FileNotFoundException ex){
-            ex.printStackTrace();
+            System.out.println (ex.getMessage());
         }
             catch (ParseException ex) {
-            ex.printStackTrace();
+                System.out.println (ex.getMessage());
         }
             catch (Exception ex){
-            ex.printStackTrace();
+                System.out.println (ex.getMessage());
         }
     }
 
