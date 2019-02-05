@@ -3,9 +3,5 @@ language: java
 jdk:
   - oraclejdk11
 
-install: true
-script:
-- mvn install
-
 after_success:
   - mvn clean test cobertura:cobertura coveralls:report
