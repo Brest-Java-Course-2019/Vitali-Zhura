@@ -1,8 +1,5 @@
 language: java
 jdk:
-  - oraclejdk8
   - oraclejdk11
-before_install: cd Delivery_Cost
-script: mvn clean package
 after_success:
   - mvn clean test cobertura:cobertura coveralls:report
