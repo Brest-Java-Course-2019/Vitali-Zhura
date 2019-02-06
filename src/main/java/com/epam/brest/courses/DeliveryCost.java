@@ -1,7 +1,7 @@
 package com.epam.brest.courses;
 
 import java.math.BigDecimal;
-import java.io.*;
+import java.io.FileNotFoundException;
 import org.json.simple.parser.ParseException;
 
 
@@ -13,20 +13,21 @@ public class DeliveryCost {
         try{
 
 
-        double distance = ScannerValue.scanValue("distance");
-        double weight = ScannerValue.scanValue("weight");
+        BigDecimal distance = ScannerValue.scanValue("distance");
+        BigDecimal weight = ScannerValue.scanValue("weight");
 
+        ValueItem valueItem = new ValueItem();
+        valueItem.setDistance(distance);
+        valueItem.setWeight(weight);
 
-        double tarifdistance = CalculatorTarif.calculateTarif(distance, "distance");
-        double tarifweight = CalculatorTarif.calculateTarif(weight, "weight");
+        BigDecimal tarifDistance = CalculatorTarif.calculateTarif(valueItem.getDistance(), "distance");
+        BigDecimal tarifWeight = CalculatorTarif.calculateTarif(valueItem.getWeight(), "weight");
 
-        ValueItem valueitem = new ValueItem();
-        valueitem.setDistance(BigDecimal.valueOf(distance));
 
 
         CalculatorImpl calculator = new CalculatorImpl();
 
-        System.out.println(calculator.Calculate(valueitem.getDistance(),tarifdistance,tarifweight));
+        System.out.println(calculator.Calculate(valueItem.getDistance(),tarifDistance,tarifWeight));
 
 
     }

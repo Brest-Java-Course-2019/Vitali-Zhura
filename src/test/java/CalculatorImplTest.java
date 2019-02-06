@@ -15,30 +15,30 @@ public class CalculatorImplTest {
 
     @Test
     public void Tarif()  throws Exception {
-        double actual = CalculatorTarif.calculateTarif(4.4, "distance");
-        Assertions.assertEquals(20.0, actual);
+        BigDecimal actual = CalculatorTarif.calculateTarif(BigDecimal.valueOf(4.4), "distance");
+        Assertions.assertEquals(BigDecimal.valueOf(20.0), actual);
     }
 
     @Test
     public void IncorrectTarif()  throws Exception {
-        double actual = CalculatorTarif.calculateTarif(4.4, "distance");
+        BigDecimal actual = CalculatorTarif.calculateTarif(BigDecimal.valueOf(4.4), "distance");
         Assertions.assertThrows(AssertionFailedError.class, () -> {
-            Assertions.assertEquals(21.5, actual);
+            Assertions.assertEquals(BigDecimal.valueOf(20.6), actual);
     });
     }
     @Test
     public void Calc() throws Exception {
         CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), 5.6, 8.7);
+        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
         Assertions.assertEquals(BigDecimal.valueOf(263.09), actual);
     }
 
     @Test
     public void IncorrectCalc() throws Exception {
         CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), 5.6, 8.7);
+        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
         Assertions.assertThrows(AssertionFailedError.class, () -> {
-            Assertions.assertEquals(200.5, actual);
+            Assertions.assertEquals(BigDecimal.valueOf (200.5), actual);
         });
     }
 

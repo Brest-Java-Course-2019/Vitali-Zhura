@@ -4,5 +4,5 @@ import java.math.BigDecimal;
 
 public interface Calculator {
 
-    BigDecimal Calculate (BigDecimal distance, double tarifdistance, double tarifweight);
+    BigDecimal Calculate (BigDecimal distance, BigDecimal tarifDistance, BigDecimal tarifWeight);
 }

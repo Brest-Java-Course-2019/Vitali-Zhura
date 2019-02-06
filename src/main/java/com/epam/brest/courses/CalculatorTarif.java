@@ -1,7 +1,10 @@
 package com.epam.brest.courses;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.Set;
 import java.util.stream.*;
 import org.json.simple.JSONObject;
@@ -10,27 +13,27 @@ import org.json.simple.parser.ParseException;
 
 public class CalculatorTarif {
 
-    static public double calculateTarif(double value, String description) throws IOException, ParseException{
+    static public BigDecimal calculateTarif(BigDecimal value, String description) throws IOException, ParseException{
 
-        double tarif=0.0;
+
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("./src/main/resources/TarifDistance.json"));
         JSONObject object = (JSONObject) obj;
-        JSONObject object1 = (JSONObject) object.get(description);
+        JSONObject objectValue = (JSONObject) object.get(description);
 
 
-        Set <String> a = object1.keySet();
-        SortedSet <Double> t = new TreeSet(a.stream().map(s -> Double.parseDouble(s))
+        Set <String> setKeys= objectValue.keySet();
+        SortedSet <Double> sortedKeys = new TreeSet(setKeys.stream().map(s -> Double.parseDouble(s))
                 .collect(Collectors.toSet()));
 
-        Double min = 0.0;
-        for (double i: t) {
-            if (value >=min && value < i) {
-                tarif =  (Double)object1.get(String.valueOf((int)i));
+        double firstValue = sortedKeys.first();
+        for (double i: sortedKeys) {
+            if (firstValue >=value.doubleValue()) {
                 break;
             }
-            min = i;
+            firstValue = i;
         }
+        BigDecimal tarif =  BigDecimal.valueOf((Double)objectValue.get(String.valueOf((int) firstValue)));
         return tarif;
 
     }
