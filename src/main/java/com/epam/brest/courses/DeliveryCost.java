@@ -27,7 +27,7 @@ public class DeliveryCost {
 
         CalculatorImpl calculator = new CalculatorImpl();
 
-        System.out.println(calculator.Calculate(valueItem.getDistance(),tarifDistance,tarifWeight));
+        System.out.println(calculator.calculate(valueItem.getDistance(),tarifDistance,tarifWeight));
 
 
     }

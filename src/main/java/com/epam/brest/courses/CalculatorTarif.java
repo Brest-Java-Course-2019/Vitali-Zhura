@@ -1,5 +1,6 @@
 package com.epam.brest.courses;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 public class CalculatorTarif {
 
     static public BigDecimal calculateTarif(BigDecimal value, String description) throws IOException, ParseException{
@@ -18,6 +20,9 @@ public class CalculatorTarif {
 
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("./src/main/resources/TarifDistance.json"));
+        if (obj == null) {
+            throw new FileNotFoundException("File with prices per km not found.");
+        }
         JSONObject object = (JSONObject) obj;
         JSONObject objectValue = (JSONObject) object.get(description);
 

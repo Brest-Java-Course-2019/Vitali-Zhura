@@ -1,3 +1,4 @@
+
 import com.epam.brest.courses.CalculatorImpl;
 import com.epam.brest.courses.CalculatorTarif;
 import org.opentest4j.AssertionFailedError;
@@ -29,14 +30,14 @@ public class CalculatorImplTest {
     @Test
     public void Calc() throws Exception {
         CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
+        BigDecimal actual = calculator.calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
         Assertions.assertEquals(BigDecimal.valueOf(263.09), actual);
     }
 
     @Test
     public void IncorrectCalc() throws Exception {
         CalculatorImpl calculator = new CalculatorImpl();
-        BigDecimal actual = calculator.Calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
+        BigDecimal actual = calculator.calculate(BigDecimal.valueOf(5.4), BigDecimal.valueOf(5.6), BigDecimal.valueOf(8.7));
         Assertions.assertThrows(AssertionFailedError.class, () -> {
             Assertions.assertEquals(BigDecimal.valueOf (200.5), actual);
         });
