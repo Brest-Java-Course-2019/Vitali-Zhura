@@ -6,22 +6,23 @@ import org.json.simple.parser.ParseException;
 
 
 public class DeliveryCost {
-
+    private static final String DISTANCE = "distance";
+    private static final String WEIGHT = "weight";
 
     public static void main(String[] args) {
 
         try{
 
 
-        BigDecimal distance = ScannerValue.scanValue("distance");
-        BigDecimal weight = ScannerValue.scanValue("weight");
+        BigDecimal distance = ScannerValue.scanValue(DISTANCE);
+        BigDecimal weight = ScannerValue.scanValue(WEIGHT);
 
         ValueItem valueItem = new ValueItem();
         valueItem.setDistance(distance);
         valueItem.setWeight(weight);
 
-        BigDecimal tarifDistance = CalculatorTarif.calculateTarif(valueItem.getDistance(), "distance");
-        BigDecimal tarifWeight = CalculatorTarif.calculateTarif(valueItem.getWeight(), "weight");
+        BigDecimal tarifDistance = CalculatorTarif.calculateTarif(valueItem.getDistance(), DISTANCE);
+        BigDecimal tarifWeight = CalculatorTarif.calculateTarif(valueItem.getWeight(), WEIGHT);
 
 
 

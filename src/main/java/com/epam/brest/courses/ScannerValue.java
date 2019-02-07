@@ -1,6 +1,5 @@
 package com.epam.brest.courses;
 
-
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.Scanner;
