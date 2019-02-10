@@ -15,7 +15,7 @@ import org.json.simple.parser.ParseException;
 
 
 public class CalculatorTarif {
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
+
 
     static public BigDecimal calculateTarif(BigDecimal value, String description) throws IOException, ParseException{
 
@@ -26,7 +26,7 @@ public class CalculatorTarif {
 
         try {
 
-            read = new FileReader("./src/main/resources/TarifDistance.json",UTF_8);
+            read = new FileReader("./src/main/resources/TarifDistance.json");
             Object obj = parser.parse(read);
             if (obj == null) {
                 throw new FileNotFoundException("File with prices per km not found.");

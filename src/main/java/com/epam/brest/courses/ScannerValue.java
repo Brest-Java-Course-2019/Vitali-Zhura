@@ -8,12 +8,12 @@ import org.apache.logging.log4j.Logger;
 
 public class ScannerValue {
 
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static BigDecimal scanValue (String valueDescription) {
 
-            Scanner scan = new Scanner(System.in, UTF_8);
+            Scanner scan = new Scanner(System.in, "UTF-8");
             BigDecimal scannerValue;
 
             do {
