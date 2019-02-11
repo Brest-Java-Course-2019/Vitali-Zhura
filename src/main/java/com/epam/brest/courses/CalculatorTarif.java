@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 public class CalculatorTarif {
 
 
-    static public BigDecimal calculateTarif(BigDecimal value, String description) throws IOException, ParseException{
+    static public BigDecimal calculateTarif(BigDecimal value, String description) throws ParseException{
 
 
         JSONParser parser = new JSONParser();

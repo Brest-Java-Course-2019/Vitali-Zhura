@@ -1,7 +1,6 @@
 package com.epam.brest.courses;
 
 import java.math.BigDecimal;
-import java.io.FileNotFoundException;
 import org.json.simple.parser.ParseException;
 
 
@@ -30,11 +29,8 @@ public class DeliveryCost {
 
         System.out.println(calculator.calculate(valueItem.getDistance(),tarifDistance,tarifWeight));
 
-
     }
-        catch (FileNotFoundException ex){
-            System.out.println (ex.getMessage());
-        }
+
             catch (ParseException ex) {
                 System.out.println (ex.getMessage());
         }

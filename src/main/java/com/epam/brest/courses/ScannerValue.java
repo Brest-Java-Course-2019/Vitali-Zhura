@@ -1,7 +1,6 @@
 package com.epam.brest.courses;
 
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +30,5 @@ public class ScannerValue {
             return scannerValue;
 
     }
-
 
 }
