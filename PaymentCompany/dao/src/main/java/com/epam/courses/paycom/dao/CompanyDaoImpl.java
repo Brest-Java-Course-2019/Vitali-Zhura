@@ -67,6 +67,14 @@ public class CompanyDaoImpl implements CompanyDao{
                 .orElseThrow(() -> new IllegalArgumentException("Company with the same name already exsists in DB."));
     }
 
+    @Override
+    public Optional<Company> addCompany(Company company) {
+        LOGGER.debug("add({})", company);
+        return Optional.of(company)
+                .map(this::insertCompany)
+                .orElseThrow(() -> new IllegalArgumentException("Company with the same name already exsists in DB."));
+    }
+
     private boolean isNameUnique(Company company) {
         return namedParameterJdbcTemplate.queryForObject(CHECK_COUNT_NAME,
                 new MapSqlParameterSource(COMPANY_ACCOUNT, company.getCompanyAccount()),

@@ -15,8 +15,11 @@ public interface CompanyDao {
 
     Optional<Company> add(Company company);
 
+    Optional<Company> addCompany(Company company);
+
     void update(Company company);
 
     void delete(int companyId);
+
 
 }
