@@ -111,7 +111,7 @@ public class CompanyDaoImpl implements CompanyDao{
     public void update(Company company) {
         Optional.of(namedParameterJdbcTemplate.update(UPDATE, new BeanPropertySqlParameterSource(company)))
                 .filter(this::successfullyUpdated)
-                .orElseThrow(() -> new RuntimeException("Failed to update department in DB"));
+                .orElseThrow(() -> new RuntimeException("Failed to update company in DB"));
     }
 
     @Override
@@ -120,7 +120,7 @@ public class CompanyDaoImpl implements CompanyDao{
         mapSqlParameterSource.addValue(COMPANY_ID, companyId);
         Optional.of(namedParameterJdbcTemplate.update(DELETE, mapSqlParameterSource))
                 .filter(this::successfullyUpdated)
-                .orElseThrow(() -> new RuntimeException("Failed to delete department from DB"));
+                .orElseThrow(() -> new RuntimeException("Failed to delete company from DB"));
     }
 
     private boolean successfullyUpdated(int numRowsUpdated) {

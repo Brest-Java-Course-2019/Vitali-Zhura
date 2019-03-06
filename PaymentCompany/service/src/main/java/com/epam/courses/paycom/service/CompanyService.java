@@ -11,6 +11,12 @@ public interface CompanyService {
 
     void add(Company... companies);
 
+    Company findById(Integer id);
+
+    void update(Company company);
+
+    void delete(int id);
+
 }
 
 

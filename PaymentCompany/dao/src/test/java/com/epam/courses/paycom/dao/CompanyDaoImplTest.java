@@ -52,7 +52,7 @@ public class CompanyDaoImplTest {
         Company company = companyDao.findById(1).get();
         assertNotNull(company);
         assertEquals(company.getCompanyId().intValue(), 1);
-        assertEquals(company.getCompanyAccount(), "A567");
+        assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004008");
     }
 
     @Test

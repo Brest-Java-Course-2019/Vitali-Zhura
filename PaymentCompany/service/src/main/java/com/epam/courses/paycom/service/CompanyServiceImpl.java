@@ -32,4 +32,23 @@ public class CompanyServiceImpl implements CompanyService{
             dao.addCompany(company);
         }
     }
+
+    @Override
+    public Company findById(Integer id) {
+        LOGGER.debug("findById({})", id);
+        return dao.findById(id)
+                .orElseThrow(() -> new RuntimeException("Failed to get company from DB"));
+    }
+
+    @Override
+    public void update(Company company) {
+        LOGGER.debug("update({})", company);
+        dao.update(company);
+    }
+
+    @Override
+    public void delete (int id) {
+        LOGGER.debug("delete({})", id);
+        dao.delete(id);
+    }
 }

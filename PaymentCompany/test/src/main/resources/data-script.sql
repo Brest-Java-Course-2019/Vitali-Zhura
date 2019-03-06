@@ -1,6 +1,6 @@
 
-INSERT INTO company (companyId, companyAccount, companyName)VALUES (1, 'A567', 'Sity');
-INSERT INTO company (companyId, companyAccount, companyName) VALUES (2, 'SR34', 'Santa');
-INSERT INTO company (companyId, companyAccount, companyName) VALUES (3, 'M678', 'Ideal');
-INSERT INTO company (companyId, companyAccount, companyName) VALUES (4, 'N234', 'Gefest');
+INSERT INTO company (companyId, companyAccount, companyName) VALUES (1, 'BY27BLBB34325630287478004008', 'Prestizh');
+INSERT INTO company (companyId, companyAccount, companyName) VALUES (2, 'BY27BLBB37899630217778006009', 'BrestVodokanal');
+INSERT INTO company (companyId, companyAccount, companyName) VALUES (3, 'BY27BLBB38800630217478006888', 'IdealMebel');
+INSERT INTO company (companyId, companyAccount, companyName) VALUES (4, 'BY27BLBB37899638899498006080', 'GefestBrestProm');
 
