@@ -1,17 +1,19 @@
-
 package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.model.Company;
+import com.epam.courses.paycom.stub.PaymentStub;
+import java.util.List;
 
-import java.util.stream.Stream;
 
 public interface CompanyService {
 
-    Stream<Company> findAll();
+    List<Company> findAll();
 
-    void add(Company... companies);
+    void add(Company company);
 
     Company findById(Integer id);
+
+    Company findByAccount(String companyAccount);
 
     void update(Company company);
 

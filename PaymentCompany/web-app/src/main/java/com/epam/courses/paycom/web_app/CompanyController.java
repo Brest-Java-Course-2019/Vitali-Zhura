@@ -2,13 +2,11 @@ package com.epam.courses.paycom.web_app;
 
 import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.service.CompanyService;
-import com.epam.courses.paycom.web_app.validators.CompanyValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +33,7 @@ public class CompanyController {
     public final String companies(Model model) {
 
         LOGGER.debug("findAll({})", model);
-        model.addAttribute("companies", companyService.findAll()
-                .collect(Collectors.toList()));
+        model.addAttribute("companies", companyService.findAll());
         return "companies";
     }
 

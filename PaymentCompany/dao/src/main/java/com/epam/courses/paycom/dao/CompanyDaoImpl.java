@@ -25,12 +25,14 @@ public class CompanyDaoImpl implements CompanyDao{
     private static final String COMPANY_ID = "companyId";
     private static final String COMPANY_ACCOUNT = "companyAccount";
     private static final String COMPANY_NAME = "companyName";
+    private static final String COMPANY_UNP = "companyUNP";
     private static final String CHECK_COUNT_NAME = "select count(companyId) from company where lower(companyAccount) = lower(:companyAccount)";
-    private static final String INSERT = "insert into company (companyAccount, companyName) values (:companyAccount, :companyName)";
-    private static final String UPDATE = "update company set companyAccount = :companyAccount, companyName = :companyName where companyId = :companyId";
+    private static final String INSERT = "insert into company (companyAccount, companyName, companyUNP) values (:companyAccount, :companyName, :companyUNP)";
+    private static final String UPDATE = "update company set companyAccount = :companyAccount, companyName = :companyName, companyUNP = :companyUNP where companyId = :companyId";
     private static final String DELETE = "delete from company where companyId = :companyId";
-    private static final String SELECT_ALL = "select companyId, companyAccount, companyName from company";
-    private static final String SELECT_BY_ID = "select companyId, companyAccount, companyName from company where companyId=:companyId";
+    private static final String SELECT_ALL = "select companyId, companyAccount, companyName, companyUNP from company Order BY companyId";
+    private static final String SELECT_BY_ID = "select companyId, companyAccount, companyName, companyUNP from company where companyId=:companyId";
+    private static final String SELECT_BY_ACCOUNT = "select companyId, companyAccount, companyName, companyUNP from company where companyAccount=:companyAccount";
 
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -43,8 +45,8 @@ public class CompanyDaoImpl implements CompanyDao{
     public Stream<Company> findAll() {
         LOGGER.debug("findAll()");
 
-        List<Company> departments = namedParameterJdbcTemplate.query(SELECT_ALL, new CompanyRowMapper());
-        return departments.stream();
+        List<Company> companies = namedParameterJdbcTemplate.query(SELECT_ALL, new CompanyRowMapper());
+        return companies.stream();
     }
 
     @Override
@@ -53,6 +55,17 @@ public class CompanyDaoImpl implements CompanyDao{
 
         SqlParameterSource parameterSource = new MapSqlParameterSource(COMPANY_ID, companyId);
         Company company = namedParameterJdbcTemplate.queryForObject(SELECT_BY_ID, parameterSource,
+                BeanPropertyRowMapper.newInstance(Company.class));
+        return Optional.ofNullable(company);
+    }
+
+
+    @Override
+    public Optional <Company> findByAccount(String companyAccount) {
+        LOGGER.debug("findByAccount()");
+
+        SqlParameterSource parameterSource = new MapSqlParameterSource(COMPANY_ACCOUNT, companyAccount);
+        Company company = namedParameterJdbcTemplate.queryForObject(SELECT_BY_ACCOUNT, parameterSource,
                 BeanPropertyRowMapper.newInstance(Company.class));
         return Optional.ofNullable(company);
     }
@@ -85,6 +98,7 @@ public class CompanyDaoImpl implements CompanyDao{
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue(COMPANY_ACCOUNT, company.getCompanyAccount());
         mapSqlParameterSource.addValue(COMPANY_NAME, company.getCompanyName());
+        mapSqlParameterSource.addValue(COMPANY_UNP, company.getCompanyUNP());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         int result = namedParameterJdbcTemplate.update(INSERT, mapSqlParameterSource, generatedKeyHolder);
@@ -103,6 +117,7 @@ public class CompanyDaoImpl implements CompanyDao{
             company.setCompanyId(resultSet.getInt(COMPANY_ID));
             company.setCompanyAccount(resultSet.getString(COMPANY_ACCOUNT));
             company.setCompanyName(resultSet.getString(COMPANY_NAME));
+            company.setCompanyUNP(resultSet.getInt(COMPANY_UNP));
 
             return company;
         }

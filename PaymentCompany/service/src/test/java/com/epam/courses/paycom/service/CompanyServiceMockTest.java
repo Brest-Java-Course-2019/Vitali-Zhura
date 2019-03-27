@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,18 +29,20 @@ public class CompanyServiceMockTest {
 
         Mockito.when(dao.findAll()).thenReturn(Stream.of(create()));
 
-        Stream<Company> result = service.findAll();
+        List<Company> result = service.findAll();
         assertNotNull(result);
-        assertEquals(1, result.count());
+        assertEquals(1, result.size());
 
         Mockito.verify(dao, Mockito.times(1)).findAll();
         Mockito.verifyNoMoreInteractions(dao);
     }
 
+
     private Company create() {
         Company company = new Company();
         company.setCompanyAccount("account");
         company.setCompanyName("name");
+        company.setCompanyUNP(111111111);
         return company;
     }
 }

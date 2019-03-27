@@ -12,6 +12,10 @@
     <artifactId>service</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>service-api</artifactId>
+        </dependency>
     <dependency>
         <groupId>com.epam.courses.paycom</groupId>
         <artifactId>model</artifactId>
@@ -19,6 +23,10 @@
         <dependency>
             <groupId>com.epam.courses.paycom</groupId>
             <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>service-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

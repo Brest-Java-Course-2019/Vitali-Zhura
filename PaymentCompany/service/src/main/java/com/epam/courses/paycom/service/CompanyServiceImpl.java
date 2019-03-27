@@ -1,13 +1,13 @@
 package com.epam.courses.paycom.service;
 
-
 import com.epam.courses.paycom.dao.CompanyDao;
 import com.epam.courses.paycom.model.Company;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import java.util.stream.Stream;
 
 @Transactional
 public class CompanyServiceImpl implements CompanyService{
@@ -21,22 +21,28 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public Stream<Company> findAll() {
+    public List<Company> findAll() {
         LOGGER.debug("Find all companies");
-        return dao.findAll();
+        return dao.findAll().collect(Collectors.toList());
     }
 
     @Override
-    public void add(Company... companies) {
-        for (Company company : companies) {
+    public void add(Company company) {
             dao.addCompany(company);
         }
-    }
 
     @Override
     public Company findById(Integer id) {
         LOGGER.debug("findById({})", id);
         return dao.findById(id)
+                .orElseThrow(() -> new RuntimeException("Failed to get company from DB"));
+    }
+
+
+    @Override
+    public Company findByAccount(String companyAccount) {
+        LOGGER.debug("findByAccount({})", companyAccount);
+        return dao.findByAccount(companyAccount)
                 .orElseThrow(() -> new RuntimeException("Failed to get company from DB"));
     }
 

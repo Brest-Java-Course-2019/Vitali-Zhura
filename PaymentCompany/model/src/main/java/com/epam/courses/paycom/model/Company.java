@@ -9,6 +9,8 @@ public class Company {
 
     private String companyName;
 
+    private Integer companyUNP;
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -34,6 +36,13 @@ public class Company {
         this.companyName = companyName;
     }
 
+    public Integer getCompanyUNP() {
+        return companyUNP;
+    }
+
+    public void setCompanyUNP(Integer companyUNP) {
+        this.companyUNP = companyUNP;
+    }
 
     @Override
     public String toString() {
@@ -41,6 +50,7 @@ public class Company {
                 "companyId=" + companyId +
                 ", companyAccount='" + companyAccount + '\'' +
                 ", companyName='" + companyName + '\'' +
+                ", companyUNP='" + companyUNP + '\'' +
                 '}';
     }
 }
