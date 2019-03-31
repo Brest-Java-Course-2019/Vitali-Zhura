@@ -1,6 +1,7 @@
 package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.model.Payment;
+import com.epam.courses.paycom.stub.PaymentInfo;
 import com.epam.courses.paycom.stub.PaymentStub;
 
 import java.sql.Date;
@@ -15,6 +16,8 @@ public interface PaymentService {
     Payment findById(Integer id);
 
     List<PaymentStub> findAllStubs();
+
+    List<PaymentInfo> findAllInfo();
 
     List<Payment> findByDate(Date beginDate, Date endDate);
 

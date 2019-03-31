@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class CompanyDaoImpl implements CompanyDao{
+public class CompanyDaoJdbcImpl implements CompanyDao{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoJdbcImpl.class);
     private static final String COMPANY_ID = "companyId";
     private static final String COMPANY_ACCOUNT = "companyAccount";
     private static final String COMPANY_NAME = "companyName";
@@ -37,7 +37,7 @@ public class CompanyDaoImpl implements CompanyDao{
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public CompanyDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public CompanyDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

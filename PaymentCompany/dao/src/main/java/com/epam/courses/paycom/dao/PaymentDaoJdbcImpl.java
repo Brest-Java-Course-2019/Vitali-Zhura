@@ -1,8 +1,9 @@
 package com.epam.courses.paycom.dao;
 
 import com.epam.courses.paycom.model.Payment;
-import com.epam.courses.paycom.stub.PaymentStub;
+import com.epam.courses.paycom.stub.PaymentInfo;
 
+import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,39 +13,36 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.time.LocalDateTime;
 
-public class PaymentDaoImpl implements PaymentDao{
+public class PaymentDaoJdbcImpl implements PaymentDao{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoJdbcImpl.class);
     private static final String PAYMENT_ID = "paymentId";
     private static final String PAYER_NAME = "payerName";
-    private static final String PAYMENT_DESC = "paymentDescription";
     private static final String PAYMENT_SUM = "paymentSum";
-    private static final String COMPANY_ID = "companyId";
+    private static final String COMPANY_ACCOUNT = "companyAccount";
+    private static final String COMPANY_NAME = "companyName";
     private static final String PAYMENT_DATE = "paymentDate";
     private static final String BEGIN_DATE = "beginDate";
     private static final String END_DATE = "endDate";
-    private static final String INSERT = "insert into payment (payerName, paymentDescription, paymentSum, companyId) values (:payerName, :paymentDescription, :paymentSum, :companyId)";
+    private static final String INSERT = "insert into payment (payerName, paymentSum, companyAccount) values (:payerName, :paymentSum, :companyAccount)";
     private static final String CANCEL = "delete from payment where paymentId = :paymentId";
-    private static final String SELECT_ALL = "select paymentId, payerName, paymentDescription, paymentSum, companyId, paymentDate from payment";
-    private static final String SELECT_BY_ID = "select paymentId, payerName, paymentDescription, paymentSum, companyId, paymentDate from payment where paymentId=:paymentId";
-    private static final String SELECT_BY_DATE = "select * from payment where paymentDate >= :beginDate AND paymentDate <= :endDate";
+    private static final String SELECT_ALL = "select paymentId, payerName, paymentSum, companyAccount, paymentDate from payment";
+    private static final String SELECT_BY_ID = "select paymentId, payerName, paymentSum, companyAccount, paymentDate from payment where paymentId=:paymentId";
+    private static final String SELECT_BY_DATE = "select * from payment where paymentDate >= :beginDate AND paymentDate < (Select DATEADD (day, 1, :endDate))";
 
-    private static final String SELECT_ALL_STUBS = "select MAX (paymentSum) as paymentMax, MIN (paymentSum) as paymentMin, count (paymentSum) as paymentCount, AVG (paymentSum) as paymentAvg from payment";
+    private static final String SELECT_ALL_INFO = "select MAX (paymentSum) as paymentMax, MIN (paymentSum) as paymentMin, count (paymentSum) as paymentCount, AVG (paymentSum) as paymentAvg from payment";
+    public static final String SELECT_ALL_STUBS = "SELECT p.paymentId, p.payerName, p.paymentSum, p.companyAccount," +
+            "c.companyName, p.paymentDate FROM payment p INNER JOIN company c ON (p.companyAccount = c.companyAccount)";
 
     private static final String PAYMENT_MAX = "paymentMax";
     private static final String PAYMENT_MIN = "paymentMin";
@@ -53,7 +51,7 @@ public class PaymentDaoImpl implements PaymentDao{
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public PaymentDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public PaymentDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
@@ -63,6 +61,22 @@ public class PaymentDaoImpl implements PaymentDao{
 
         List<Payment> payments= namedParameterJdbcTemplate.query(SELECT_ALL, new CompanyRowMapper());
         return payments.stream();
+    }
+
+    @Override
+    public Stream<PaymentStub> findAllStubs() {
+        LOGGER.debug("findAllStubs()");
+        List<PaymentStub> paymentList =
+                namedParameterJdbcTemplate
+                        .query(SELECT_ALL_STUBS,
+                                (resultSet, i) -> new PaymentStub()
+                                        .id(resultSet.getInt(PAYMENT_ID))
+                                        .payer(resultSet.getString(PAYER_NAME))
+                                        .sum(resultSet.getInt(PAYMENT_SUM))
+                                        .account(resultSet.getString(COMPANY_ACCOUNT))
+                                        .company(resultSet.getString(COMPANY_NAME))
+                                        .payDate(resultSet.getDate(PAYMENT_DATE)));
+        return paymentList.stream();
     }
 
     @Override
@@ -104,9 +118,8 @@ public class PaymentDaoImpl implements PaymentDao{
     private Optional<Payment> insertPayment(Payment payment) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue(PAYER_NAME, payment.getPayerName());
-        mapSqlParameterSource.addValue(PAYMENT_DESC, payment.getPaymentDescription());
         mapSqlParameterSource.addValue(PAYMENT_SUM, payment.getPaymentSum());
-        mapSqlParameterSource.addValue(COMPANY_ID, payment.getCompanyId());
+        mapSqlParameterSource.addValue(COMPANY_ACCOUNT, payment.getCompanyAccount());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         int result = namedParameterJdbcTemplate.update(INSERT, mapSqlParameterSource, generatedKeyHolder);
@@ -128,9 +141,8 @@ public class PaymentDaoImpl implements PaymentDao{
             Payment payment = new Payment();
             payment.setPaymentId(resultSet.getInt(PAYMENT_ID));
             payment.setPayerName(resultSet.getString(PAYER_NAME));
-            payment.setPaymentDescription(resultSet.getString(PAYMENT_DESC));
             payment.setPaymentSum(resultSet.getInt(PAYMENT_SUM));
-            payment.setCompanyId(resultSet.getInt(COMPANY_ID));
+            payment.setCompanyAccount(resultSet.getString(COMPANY_ACCOUNT));
             payment.setPaymentDate(resultSet.getTimestamp(PAYMENT_DATE));
 
             return payment;
@@ -152,12 +164,12 @@ public class PaymentDaoImpl implements PaymentDao{
     }
 
     @Override
-    public Stream<PaymentStub> findAllStubs() {
-        LOGGER.debug("findAllStubs()");
-        List<PaymentStub> paymentInfo =
+    public Stream<PaymentInfo> findAllInfo() {
+        LOGGER.debug("findAllInfo()");
+        List<PaymentInfo> paymentInfo =
                 namedParameterJdbcTemplate
-                        .query(SELECT_ALL_STUBS,
-                                (resultSet, i) -> new PaymentStub()
+                        .query(SELECT_ALL_INFO,
+                                (resultSet, i) -> new PaymentInfo()
                                         .paymentMax(resultSet.getInt(PAYMENT_MAX))
                                         .paymentMin(resultSet.getInt(PAYMENT_MIN))
                                         .paymentCount(resultSet.getInt(PAYMENT_COUNT))

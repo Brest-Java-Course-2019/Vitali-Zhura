@@ -1,6 +1,7 @@
 package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.model.Company;
+import com.epam.courses.paycom.stub.PaymentStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -80,29 +81,26 @@ class CompanyServiceImplTest {
         assertEquals(secondCompany.getCompanyUNP(), company.getCompanyUNP());
     }
 
+
+    @Test
+    void update() {
+        Company afterUpdate = companyService.findAll().get(1);
+        afterUpdate.setCompanyAccount("new Account");
+        afterUpdate.setCompanyName("new Name");
+        afterUpdate.setCompanyUNP(1111);
+        companyService.update(afterUpdate);
+        assertEquals(companyService.findAll().get(1).getCompanyId(), afterUpdate.getCompanyId());
+    }
+
     @Test
     void delete() {
 
         long count = companyService.findAll().size();
         LOGGER.debug("Count before: {}", count);
 
-        companyService.delete(companyService.findAll().get(0).getCompanyId());
+        companyService.delete(companyService.findAll().get(2).getCompanyId());
         long newCount = companyService.findAll().size();
         LOGGER.debug("Count after: {}", newCount);
         assert count == newCount+1;
-
-    }
-
-    @Test
-    void update() {
-        Company afterUpdate = companyService.findAll().get(0);
-        afterUpdate.setCompanyAccount("new Account");
-        afterUpdate.setCompanyName("new Name");
-        afterUpdate.setCompanyUNP(1111);
-        companyService.update(afterUpdate);
-        assertEquals(companyService.findAll().get(0).getCompanyId(), afterUpdate.getCompanyId());
-
-
-
     }
 }

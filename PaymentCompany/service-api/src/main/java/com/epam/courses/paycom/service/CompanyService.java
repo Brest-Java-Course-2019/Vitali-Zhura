@@ -1,7 +1,7 @@
 package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.model.Company;
-import com.epam.courses.paycom.stub.PaymentStub;
+
 import java.util.List;
 
 

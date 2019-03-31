@@ -42,7 +42,7 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="companyDao" class="com.epam.courses.paycom.dao.CompanyDaoImpl">
+    <bean id="companyDao" class="com.epam.courses.paycom.dao.CompanyDaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 

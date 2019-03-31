@@ -2,10 +2,10 @@ package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.dao.PaymentDao;
 import com.epam.courses.paycom.model.Payment;
+import com.epam.courses.paycom.stub.PaymentInfo;
 import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
@@ -24,6 +24,12 @@ public class PaymentServiceImpl implements PaymentService{
     public List<Payment> findAll() {
         LOGGER.debug("Find all payments");
         return dao.findAll().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaymentInfo> findAllInfo() {
+        LOGGER.debug("Find all info");
+        return dao.findAllInfo().collect(Collectors.toList());
     }
 
     @Override

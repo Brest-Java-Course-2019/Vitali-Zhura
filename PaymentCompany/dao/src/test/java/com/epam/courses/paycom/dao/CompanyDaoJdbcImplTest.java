@@ -21,11 +21,12 @@
     @Transactional
     @Rollback
 
-    public class CompanyDaoImplTest {
+    public class CompanyDaoJdbcImplTest {
 
         private static final String NEW_COMPANY_ACCOUNT = "New Company Account";
         private static final String NEW_COMPANY_NAME = "New Company Name";
         private static final Integer NEW_COMPANY_UNP = 100000000;
+        private static final long TOTAL_COUNT = 4;
 
         @Autowired
         private CompanyDao companyDao;
@@ -42,17 +43,16 @@
 
             Stream<Company> companies = companyDao.findAll();
             assertNotNull(companies);
-            assertEquals(companies.count(), 4);
+            assertEquals(companies.count(), TOTAL_COUNT);
         }
 
         @Test
-        void incorrectfindAllCheckCount() {
+        void incorrectFindAllCheckCount() {
 
             Stream<Company> companies = companyDao.findAll();
             assertNotNull(companies);
             Assertions.assertThrows(AssertionFailedError.class, () -> {
-            assertEquals(companies.count(), 3);})
-            ;
+            assertEquals(companies.count(), TOTAL_COUNT-1);});
         }
 
         @Test
@@ -62,20 +62,20 @@
             assertAll(
             () -> assertEquals(company.getCompanyId().intValue(), 1),
             () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004008"),
-            () -> assertEquals(company.getCompanyName(), "Prestizh"),
+            () -> assertEquals(company.getCompanyName(), "Престиж"),
             () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
         }
 
         @Test
-        void incorrectfindById() {
+        void incorrectFindById() {
             Company company = companyDao.findById(1).get();
             assertNotNull(company);
             Assertions.assertThrows(MultipleFailuresError.class, () ->
                     assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
                     () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004009"),
-                    () -> assertEquals(company.getCompanyName(), "Prestizh"),
-                    () -> assertEquals(company.getCompanyUNP().intValue(), 200342345)));
+                    () -> assertEquals(company.getCompanyName(), "ПрестижПром"),
+                    () -> assertEquals(company.getCompanyUNP().intValue(), 200342346)));
         }
 
         @Test
@@ -84,8 +84,19 @@
             assertNotNull(company);
             assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
-                    () -> assertEquals(company.getCompanyName(), "Prestizh"),
+                    () -> assertEquals(company.getCompanyName(), "Престиж"),
                     () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
+        }
+
+        @Test
+        void incorrectFindByAccount() {
+            Company company = companyDao.findByAccount("BY27BLBB34325630287478004008").get();
+            assertNotNull(company);
+            Assertions.assertThrows(MultipleFailuresError.class, () ->
+            assertAll(
+                    () -> assertEquals(company.getCompanyId().intValue(), 2),
+                    () -> assertEquals(company.getCompanyName(), "Престип"),
+                    () -> assertEquals(company.getCompanyUNP().intValue(), 20034234)));
         }
 
 
@@ -153,12 +164,20 @@
 
         @Test
         void delete() {
-            Stream<Company> companies = companyDao.findAll();
-            Company company = companies.findFirst().get();
+
+            Stream<Company> companiesBeforeDelete = companyDao.findAll();
+            Company company =  companyDao.findById(3).get();
             companyDao.delete(company.getCompanyId());
+            Stream<Company> companiesAfterDelete = companyDao.findAll();
+            assertEquals(1, companiesBeforeDelete.count() - companiesAfterDelete.count());
+        }
+
+        @Test
+        void incorrectdelete() {
+            Company company = companyDao.findById(2).get();
 
             Assertions.assertThrows(DataAccessException.class, () -> {
-                companyDao.findById(company.getCompanyId());
+                companyDao.delete(company.getCompanyId());
             });
         }
 

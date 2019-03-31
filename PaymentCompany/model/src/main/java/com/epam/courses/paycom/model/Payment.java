@@ -9,11 +9,9 @@ public class Payment {
 
     private String payerName;
 
-    private String paymentDescription;
-
     private Integer paymentSum;
 
-    private Integer companyId;
+    private String companyAccount;
 
     private Date paymentDate;
 
@@ -33,14 +31,6 @@ public class Payment {
         this.payerName = payerName;
     }
 
-    public String getPaymentDescription() {
-        return paymentDescription;
-    }
-
-    public void setPaymentDescription(String paymentDescription) {
-        this.paymentDescription = paymentDescription;
-    }
-
     public Integer getPaymentSum() {
         return paymentSum;
     }
@@ -49,12 +39,12 @@ public class Payment {
         this.paymentSum = paymentSum;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public String getCompanyAccount() {
+        return companyAccount;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setCompanyAccount(String companyAccount) {
+        this.companyAccount = companyAccount;
     }
 
 
@@ -71,9 +61,8 @@ public class Payment {
         return "Payment{" +
                 "paymentId=" + paymentId +
                 ", payerName='" + payerName + '\'' +
-                ", paymentDescription='" + paymentDescription + '\'' +
                 ", paymentSum='" + paymentSum + '\'' +
-                ", companyId='" + companyId + '\'' +
+                ", companyAccount='" + companyAccount + '\'' +
                 ", paymentData='" + paymentDate + '\'' +
                 '}';
     }

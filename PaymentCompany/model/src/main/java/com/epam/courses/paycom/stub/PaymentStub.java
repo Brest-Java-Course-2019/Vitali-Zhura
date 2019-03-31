@@ -1,77 +1,112 @@
 package com.epam.courses.paycom.stub;
 
+import java.util.Date;
+
 public class PaymentStub {
 
-    private Integer paymentMax;
+    private Integer id;
 
-    private Integer paymentMin;
+    private String payer;
 
-    private Integer paymentCount;
+    private Integer sum;
 
-    private Double paymentAvg;
+    private String account;
 
-    public Integer getPaymentMax() {
-        return paymentMax;
+    private String company;
+
+    private Date payDate;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setPaymentMax(Integer paymentMax) {
-        this.paymentMax = paymentMax;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public PaymentStub paymentMax(Integer paymentMax) {
-        this.paymentMax = paymentMax;
+    public PaymentStub id(Integer id) {
+        this.id = id;
         return this;
     }
 
-    public Integer getPaymentMin() {
-        return paymentMin;
+    public String getPayer() {
+        return payer;
     }
 
-    public void setPaymentMin(Integer paymentMin) {
-        this.paymentMin = paymentMin;
+    public void setPayer(String payer) {
+        this.payer = payer;
     }
 
-    public PaymentStub paymentMin(Integer paymentMin) {
-        this.paymentMin = paymentMin;
+    public PaymentStub payer(String payer) {
+        this.payer = payer;
         return this;
     }
 
-    public Integer getPaymentCount() {
-        return paymentCount;
+    public Integer getSum() {
+        return sum;
     }
 
-    public void setPaymentCount(Integer paymentCount) {
-        this.paymentCount = paymentCount;
+    public void setSum(Integer sum) {
+        this.sum = sum;
     }
 
-    public PaymentStub paymentCount(Integer paymentCount) {
-        this.paymentCount = paymentCount;
+    public PaymentStub sum(Integer sum) {
+        this.sum = sum;
         return this;
     }
 
-
-    public Double getPaymentAvg() {
-        return paymentAvg;
+    public String getAccount() {
+        return account;
     }
 
-    public void setPaymentAvg(Double paymentAvg) {
-        this.paymentAvg = paymentAvg;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public PaymentStub paymentAvg(Double paymentAvg) {
-        this.paymentAvg = paymentAvg;
+    public PaymentStub account(String account) {
+        this.account = account;
         return this;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public PaymentStub company(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public Date getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(Date payDate) {
+        this.payDate = payDate;
+    }
+
+    public PaymentStub payDate(Date payDate) {
+        this.payDate = payDate;
+        return this;
+    }
 
     @Override
     public String toString() {
-        return "DepartmentStub{" +
-                "paymentMax=" + paymentMax +
-                ", paymentMin='" + paymentMin + '\'' +
-                ", paymentCount='" + paymentCount + '\'' +
-                ", paymentAvg=" + paymentAvg +
+        return "PaymentStub{" +
+                "id=" + id +
+                ", payer='" + payer + '\'' +
+                ", sum='" + sum + '\'' +
+                ", account='" + account + '\'' +
+                ", company='" + company + '\'' +
+                ", payDate='" + payDate + '\'' +
                 '}';
     }
 
 }
+
+
+
