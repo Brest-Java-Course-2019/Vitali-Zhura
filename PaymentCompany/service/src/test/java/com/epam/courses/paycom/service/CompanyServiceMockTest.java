@@ -73,6 +73,7 @@ public class CompanyServiceMockTest {
 
     }
 
+
     private Company create() {
         Company company = new Company();
         company.setCompanyId(5);

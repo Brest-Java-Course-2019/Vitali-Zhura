@@ -36,7 +36,7 @@ class CompanyControllerTest {
                 MockMvcRequestBuilders.get("/")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("companies"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/companies"))
         ;
     }
 }

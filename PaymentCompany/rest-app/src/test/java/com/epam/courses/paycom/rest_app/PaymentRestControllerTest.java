@@ -20,11 +20,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.awt.image.DataBufferDouble;
+import java.sql.DataTruncation;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:rest-spring-test.xml"})
+
 
 
 
@@ -35,6 +40,8 @@ public class PaymentRestControllerTest {
 
     @Autowired
     private PaymentService paymentService;
+
+   DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private MockMvc mockMvc;
 
@@ -66,18 +73,16 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].payerName", Matchers.is("name0")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentDescription", Matchers.is("desc0")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentSum", Matchers.is(100)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyId", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentDate", Matchers.is(1552165200000L)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyAccount", Matchers.is("account0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())))
 
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].payerName", Matchers.is("name1")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDescription", Matchers.is("desc1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentSum", Matchers.is(101)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyId", Matchers.is(2)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDate", Matchers.is(1552165200000L)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyAccount", Matchers.is("account1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
         ;
 
         Mockito.verify(paymentService, Mockito.times(1)).findAll();
@@ -87,10 +92,10 @@ public class PaymentRestControllerTest {
         Payment payment = new Payment();
         payment.setPaymentId(index);
         payment.setPayerName("name" + index);
-        payment.setPaymentDescription("desc" + index);
+
         payment.setPaymentSum(100 + index);
-        payment.setCompanyId(1 + index);
-        payment.setPaymentDate(java.sql.Date.valueOf("2019-03-10"));
+        payment.setCompanyAccount("account" + index);
+        payment.setPaymentDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));
         return payment;
     }
 }

@@ -74,6 +74,7 @@ public class CompanyRestControllerTest {
         Mockito.verify(companyService, Mockito.times(1)).findAll();
     }
 
+
     private Company create(int index) {
         Company company = new Company();
         company.setCompanyId(index);

@@ -3,6 +3,7 @@ package com.epam.courses.paycom.rest_app;
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.service.PaymentService;
 import com.epam.courses.paycom.stub.PaymentInfo;
+import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,16 @@ public class PaymentRestController implements PaymentService {
 
     @Override
     @RequestMapping(value = "/stub", method = RequestMethod.GET)
-    public List <PaymentInfo> findAllStubs() {
+    public List <PaymentStub> findAllStubs() {
         LOGGER.debug("find all stubs");
         return paymentService.findAllStubs();
+    }
+
+    @Override
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public List <PaymentInfo> findAllInfo() {
+        LOGGER.debug("find all stubs");
+        return paymentService.findAllInfo();
     }
 
     @Override

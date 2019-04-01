@@ -3,6 +3,7 @@ package com.epam.courses.paycom.web_app.consumers;
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.stub.PaymentInfo;
 import com.epam.courses.paycom.service.PaymentService;
+import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +41,17 @@ public class PaymentRestConsumer implements PaymentService {
     }
 
     @Override
-    public  List<PaymentInfo> findAllStubs() {
+    public  List<PaymentInfo> findAllInfo() {
+        LOGGER.debug("findAllInfo({})");
+        ResponseEntity<Payment> responseEntity = restTemplate.getForEntity(url + "/info", Payment.class);
+        return (List<PaymentInfo>) responseEntity.getBody();
+    }
+
+    @Override
+    public  List<PaymentStub> findAllStubs() {
         LOGGER.debug("findAllStubs({})");
         ResponseEntity<Payment> responseEntity = restTemplate.getForEntity(url + "/stubs", Payment.class);
-        return (List<PaymentInfo>) responseEntity.getBody();
+        return (List<PaymentStub>) responseEntity.getBody();
     }
 
     @Override
