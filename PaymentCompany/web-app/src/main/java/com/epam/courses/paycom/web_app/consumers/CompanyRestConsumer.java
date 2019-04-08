@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
+
 public class CompanyRestConsumer implements CompanyService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyRestConsumer.class);
@@ -59,7 +60,5 @@ public class CompanyRestConsumer implements CompanyService{
         LOGGER.debug("update({})", id);
         restTemplate.delete(url + "/" + id);
     }
-
-
 
 }

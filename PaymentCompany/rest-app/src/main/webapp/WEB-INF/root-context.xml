@@ -50,6 +50,12 @@
         <constructor-arg ref="companyDao"/>
     </bean>
 
+    <bean id="paymentDao" class="com.epam.courses.paycom.dao.PaymentDaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
 
+    <bean id="paymentService" class="com.epam.courses.paycom.service.PaymentServiceImpl">
+        <constructor-arg ref="paymentDao"/>
+    </bean>
 
 </beans>

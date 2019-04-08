@@ -6,9 +6,9 @@ public class PaymentInfo {
 
     private Integer paymentMin;
 
-    private Integer paymentCount;
+    private Integer paymentsCount;
 
-    private Double paymentAvg;
+    private Integer paymentsSum;
 
     public Integer getPaymentMax() {
         return paymentMax;
@@ -36,30 +36,30 @@ public class PaymentInfo {
         return this;
     }
 
-    public Integer getPaymentCount() {
-        return paymentCount;
+    public Integer getPaymentsCount() {
+        return paymentsCount;
     }
 
-    public void setPaymentCount(Integer paymentCount) {
-        this.paymentCount = paymentCount;
+    public void setPaymentsCount(Integer paymentsCount) {
+        this.paymentsCount = paymentsCount;
     }
 
-    public PaymentInfo paymentCount(Integer paymentCount) {
-        this.paymentCount = paymentCount;
+    public PaymentInfo paymentsCount(Integer paymentsCount) {
+        this.paymentsCount = paymentsCount;
         return this;
     }
 
 
-    public Double getPaymentAvg() {
-        return paymentAvg;
+    public Integer getPaymentsSum() {
+        return paymentsSum;
     }
 
-    public void setPaymentAvg(Double paymentAvg) {
-        this.paymentAvg = paymentAvg;
+    public void setPaymentsSum(Integer paymentsSum) {
+        this.paymentsSum = paymentsSum;
     }
 
-    public PaymentInfo paymentAvg(Double paymentAvg) {
-        this.paymentAvg = paymentAvg;
+    public PaymentInfo paymentsSum(Integer paymentsSum) {
+        this.paymentsSum = paymentsSum;
         return this;
     }
 
@@ -69,8 +69,8 @@ public class PaymentInfo {
         return "DepartmentStub{" +
                 "paymentMax=" + paymentMax +
                 ", paymentMin='" + paymentMin + '\'' +
-                ", paymentCount='" + paymentCount + '\'' +
-                ", paymentAvg=" + paymentAvg +
+                ", paymentsCount='" + paymentsCount + '\'' +
+                ", paymentsSum=" + paymentsSum +
                 '}';
     }
 

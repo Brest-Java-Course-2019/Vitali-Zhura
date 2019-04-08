@@ -40,14 +40,14 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
     private static final String SELECT_BY_ID = "select paymentId, payerName, paymentSum, companyAccount, paymentDate from payment where paymentId=:paymentId";
     private static final String SELECT_BY_DATE = "select * from payment where paymentDate >= :beginDate AND paymentDate < (Select DATEADD (day, 1, :endDate))";
 
-    private static final String SELECT_ALL_INFO = "select MAX (paymentSum) as paymentMax, MIN (paymentSum) as paymentMin, count (paymentSum) as paymentCount, AVG (paymentSum) as paymentAvg from payment";
+    private static final String SELECT_ALL_INFO = "select MAX (paymentSum) as paymentMax, MIN (paymentSum) as paymentMin, count (paymentSum) as paymentsCount, SUM (paymentSum) as paymentsSum from payment";
     public static final String SELECT_ALL_STUBS = "SELECT p.paymentId, p.payerName, p.paymentSum, p.companyAccount," +
             "c.companyName, p.paymentDate FROM payment p INNER JOIN company c ON (p.companyAccount = c.companyAccount)";
 
     private static final String PAYMENT_MAX = "paymentMax";
     private static final String PAYMENT_MIN = "paymentMin";
-    private static final String PAYMENT_COUNT = "paymentCount";
-    private static final String PAYMENT_AVG = "paymentAvg";
+    private static final String PAYMENTS_COUNT = "paymentsCount";
+    private static final String PAYMENTS_SUM = "paymentsSum";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -172,8 +172,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
                                 (resultSet, i) -> new PaymentInfo()
                                         .paymentMax(resultSet.getInt(PAYMENT_MAX))
                                         .paymentMin(resultSet.getInt(PAYMENT_MIN))
-                                        .paymentCount(resultSet.getInt(PAYMENT_COUNT))
-                                        .paymentAvg(resultSet.getDouble(PAYMENT_AVG)));
+                                        .paymentsCount(resultSet.getInt(PAYMENTS_COUNT))
+                                        .paymentsSum(resultSet.getInt(PAYMENTS_SUM)));
         return paymentInfo.stream();
     }
 

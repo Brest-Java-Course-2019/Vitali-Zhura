@@ -18,13 +18,11 @@ public class CompanyController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
 
-    @Autowired
     private CompanyService companyService;
 
-
-    @GetMapping(value = "/")
-    public String defaultPageRedirect() {
-        return "redirect:companies";
+    @Autowired
+    public CompanyController (CompanyService companyService) {
+        this.companyService = companyService;
     }
 
 

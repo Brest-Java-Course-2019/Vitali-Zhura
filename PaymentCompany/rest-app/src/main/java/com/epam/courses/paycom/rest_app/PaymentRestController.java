@@ -38,7 +38,7 @@ public class PaymentRestController implements PaymentService {
     }
 
     @Override
-    @RequestMapping(value = "/date", method = RequestMethod.GET)
+    @RequestMapping(value = "/{beginDate}/{endDate}", method = RequestMethod.GET)
     public List<Payment> findByDate(@PathVariable Date beginDate, Date endDate) {
         LOGGER.debug("find payment by id({})", beginDate, endDate);
         return paymentService.findByDate(beginDate, endDate);

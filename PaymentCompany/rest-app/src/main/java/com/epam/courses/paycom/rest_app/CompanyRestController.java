@@ -31,19 +31,19 @@ public class CompanyRestController implements CompanyService {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Company findById(@PathVariable Integer id) {
-        LOGGER.debug("find department by id({})", id);
+        LOGGER.debug("find company by id({})", id);
         return companyService.findById(id);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value= "/account/{account}", method = RequestMethod.GET)
     public Company findByAccount(@PathVariable String account) {
         LOGGER.debug("find company by account({})", account);
         return companyService.findByAccount(account);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping( method = RequestMethod.POST)
     public void add(@RequestBody Company company) {
         LOGGER.debug("add company({})", company);
         companyService.add(company);

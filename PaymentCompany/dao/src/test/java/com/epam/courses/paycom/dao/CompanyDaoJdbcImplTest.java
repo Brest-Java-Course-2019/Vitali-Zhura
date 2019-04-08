@@ -62,7 +62,7 @@
             assertAll(
             () -> assertEquals(company.getCompanyId().intValue(), 1),
             () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004008"),
-            () -> assertEquals(company.getCompanyName(), "Престиж"),
+            () -> assertEquals(company.getCompanyName(), "Prestizh"),
             () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
         }
 
@@ -74,7 +74,7 @@
                     assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
                     () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004009"),
-                    () -> assertEquals(company.getCompanyName(), "ПрестижПром"),
+                    () -> assertEquals(company.getCompanyName(), "PrestizhProm"),
                     () -> assertEquals(company.getCompanyUNP().intValue(), 200342346)));
         }
 
@@ -84,7 +84,7 @@
             assertNotNull(company);
             assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
-                    () -> assertEquals(company.getCompanyName(), "Престиж"),
+                    () -> assertEquals(company.getCompanyName(), "Prestizh"),
                     () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
         }
 
@@ -95,7 +95,7 @@
             Assertions.assertThrows(MultipleFailuresError.class, () ->
             assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 2),
-                    () -> assertEquals(company.getCompanyName(), "Престип"),
+                    () -> assertEquals(company.getCompanyName(), "PrestizhProm"),
                     () -> assertEquals(company.getCompanyUNP().intValue(), 20034234)));
         }
 

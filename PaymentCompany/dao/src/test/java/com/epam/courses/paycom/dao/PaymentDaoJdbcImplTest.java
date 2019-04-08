@@ -88,7 +88,7 @@ public class PaymentDaoJdbcImplTest {
         assertNotNull(payment);
         assertAll(
                 () -> assertEquals(payment.getPaymentId().intValue(), 1),
-                () -> assertEquals(payment.getPayerName(), "Иванов"),
+                () -> assertEquals(payment.getPayerName(), "Ivanov"),
                 () -> assertEquals(payment.getPaymentSum().intValue(), 230),
                 () -> assertEquals(payment.getCompanyAccount(), "BY27BLBB34325630287478004008"),
                 () -> assertEquals(payment.getPaymentDate().toString(), "2019-03-10 12:12:30.0"));
@@ -101,7 +101,7 @@ public class PaymentDaoJdbcImplTest {
         Assertions.assertThrows(MultipleFailuresError.class, () ->
         assertAll(
                 () -> assertEquals(payment.getPaymentId().intValue(), 1),
-                () -> assertEquals(payment.getPayerName(), "Сидоров"),
+                () -> assertEquals(payment.getPayerName(), "Svepovo"),
                 () -> assertEquals(payment.getPaymentSum().intValue(), 231),
                 () -> assertEquals(payment.getCompanyAccount(), "BY27BLBB34325630287478004004"),
                 () -> assertEquals(payment.getPaymentDate().toString(), "2019-03-10 12:12:30.0")));

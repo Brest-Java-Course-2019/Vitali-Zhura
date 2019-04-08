@@ -18,4 +18,6 @@
         <constructor-arg value="com.epam.courses.paycom.service.PaymentService"/>
     </bean>
 
+    <bean id="mapper" class ="com.fasterxml.jackson.databind.ObjectMapper"/>
+
 </beans>

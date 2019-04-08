@@ -2,7 +2,10 @@ package com.epam.courses.paycom.rest_app;
 
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.service.PaymentService;
+import com.epam.courses.paycom.stub.PaymentStub;
+import com.epam.courses.paycom.stub.PaymentInfo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,18 +23,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.awt.image.DataBufferDouble;
-import java.sql.DataTruncation;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:rest-spring-test.xml"})
-
-
-
 
 public class PaymentRestControllerTest {
 
@@ -41,9 +42,15 @@ public class PaymentRestControllerTest {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private MockMvc mockMvc;
+
+    private int ZERO = 0;
+    private int ONE = 1;
 
     @BeforeEach
     public void setUp() {
@@ -60,10 +67,10 @@ public class PaymentRestControllerTest {
     }
 
     @Test
-    public void payments() throws Exception {
+    public void findAllPayments() throws Exception {
         Mockito.when(paymentService.findAll()).thenReturn(new ArrayList<Payment>() {{
-            add(create(0));
-            add(create(1));
+            add(create(ZERO));
+            add(create(ONE));
         }});
 
         mockMvc.perform(
@@ -83,10 +90,134 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentSum", Matchers.is(101)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyAccount", Matchers.is("account1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
+
+        Mockito.verify(paymentService, Mockito.times(ONE)).findAll();
+    }
+
+    @Test
+    public void findAllStubs() throws Exception {
+        Mockito.when(paymentService.findAllStubs()).thenReturn(new ArrayList<PaymentStub>() {{
+            add(createStub(ZERO));
+            add(createStub(ONE));
+        }});
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/payments/stub")
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].payer", Matchers.is("payer0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].sum", Matchers.is(100)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].account", Matchers.is("account0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].company", Matchers.is("company0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].payDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())))
+
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].payer", Matchers.is("payer1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].sum", Matchers.is(101)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].account", Matchers.is("account1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].company", Matchers.is("company1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].payDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
+
+        Mockito.verify(paymentService, Mockito.times(ONE)).findAllStubs();
+    }
+
+    @Test
+    public void findPaymentById() throws Exception {
+        Mockito.when(paymentService.findById(anyInt())).thenReturn(create(1));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/payments/1")
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.paymentId", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.payerName", Matchers.is("name1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.paymentSum", Matchers.is(101)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.companyAccount", Matchers.is("account1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
+
+        Mockito.verify(paymentService, Mockito.times(ONE)).findById(anyInt());
+    }
+
+    @Test
+    public void findAllInfoPayments() throws Exception {
+        Mockito.when(paymentService.findAllInfo()).thenReturn(new ArrayList<PaymentInfo>() {{
+            add(createInfo(ZERO));
+        }});
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/payments/info")
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentMax", Matchers.is(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentMin", Matchers.is(5)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentsCount", Matchers.is(15)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentsSum", Matchers.is(40)));
+
+        Mockito.verify(paymentService, Mockito.times(1)).findAllInfo();
+    }
+
+    @Test
+    public void addPayment() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/payments")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsString(create(1)))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
         ;
 
-        Mockito.verify(paymentService, Mockito.times(1)).findAll();
+        Mockito.verify(paymentService, Mockito.times(ONE)).add(any());
     }
+
+    @Test
+    public void cancelPayment() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/payments/1")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsString(create(1)))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+        ;
+
+        Mockito.verify(paymentService, Mockito.times(ONE)).cancel(anyInt());
+    }
+
+    @Test
+    public void findPaymentByDate() throws Exception {
+        Mockito.when(paymentService.findByDate(any(), any())).thenReturn(new ArrayList<Payment>() {{
+            add(create(ZERO));
+            add(create(ONE));
+        }});
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/payments/2019-03-10/2019-03-11")
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].payerName", Matchers.is("name0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentSum", Matchers.is(100)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyAccount", Matchers.is("account0")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())))
+
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].payerName", Matchers.is("name1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentSum", Matchers.is(101)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyAccount", Matchers.is("account1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
+
+
+        Mockito.verify(paymentService, Mockito.times(ONE)).findByDate(any(), any());
+    }
+
 
     private Payment create(int index) {
         Payment payment = new Payment();
@@ -97,5 +228,26 @@ public class PaymentRestControllerTest {
         payment.setCompanyAccount("account" + index);
         payment.setPaymentDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));
         return payment;
+    }
+
+    private PaymentStub createStub(int index) {
+        PaymentStub paymentStub = new PaymentStub();
+        paymentStub.setId(index);
+        paymentStub.setPayer("payer" + index);
+        paymentStub.setSum(100 + index);
+        paymentStub.setAccount("account" + index);
+        paymentStub.setCompany("company" + index);
+        paymentStub.setPayDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));
+        return paymentStub;
+    }
+
+    private PaymentInfo createInfo(int index) {
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setPaymentMax(10+index);
+        paymentInfo.setPaymentMin(5+index);
+        paymentInfo.setPaymentsCount(15+index);
+        paymentInfo.setPaymentsSum(40+index);
+
+        return paymentInfo;
     }
 }
