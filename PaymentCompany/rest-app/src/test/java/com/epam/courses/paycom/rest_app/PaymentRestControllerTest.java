@@ -214,7 +214,6 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyAccount", Matchers.is("account1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentDate", Matchers.is(formatter.parse("2019-03-10 12:12:30").getTime())));
 
-
         Mockito.verify(paymentService, Mockito.times(ONE)).findByDate(any(), any());
     }
 
@@ -223,7 +222,6 @@ public class PaymentRestControllerTest {
         Payment payment = new Payment();
         payment.setPaymentId(index);
         payment.setPayerName("name" + index);
-
         payment.setPaymentSum(100 + index);
         payment.setCompanyAccount("account" + index);
         payment.setPaymentDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class CompanyController {
@@ -20,7 +23,6 @@ public class CompanyController {
 
     private CompanyService companyService;
 
-    @Autowired
     public CompanyController (CompanyService companyService) {
         this.companyService = companyService;
     }
@@ -28,9 +30,21 @@ public class CompanyController {
 
     @GetMapping(value = "/companies")
     public final String companies(Model model) {
-
         LOGGER.debug("findAll({})", model);
+        model.addAttribute("isNew", true);
         model.addAttribute("companies", companyService.findAll());
+        return "companies";
+    }
+
+
+    @GetMapping(value = "/companies/{account}")
+    public final String companiesFind(@PathVariable String account, Model model) {
+        LOGGER.debug("findByAccount({}, {})", account, model);
+        model.addAttribute("isNew", false);
+        List<Company> companies = new ArrayList<Company>();
+        companies.add(companyService.findByAccount(account));
+
+        model.addAttribute("companies", companies);
         return "companies";
     }
 
@@ -58,6 +72,7 @@ public class CompanyController {
 
         return "company";
     }
+
 
     @PostMapping(value = "/company/{id}")
     public String updateCompany(Company company) {

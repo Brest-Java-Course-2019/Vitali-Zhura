@@ -4,6 +4,8 @@ import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.service.PaymentService;
 import com.epam.courses.paycom.stub.PaymentInfo;
 import com.epam.courses.paycom.stub.PaymentStub;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,8 @@ public class PaymentRestController implements PaymentService {
 
     @Override
     @RequestMapping(value = "/{beginDate}/{endDate}", method = RequestMethod.GET)
-    public List<Payment> findByDate(@PathVariable Date beginDate, Date endDate) {
-        LOGGER.debug("find payment by id({})", beginDate, endDate);
+    public List<Payment> findByDate(@PathVariable Date beginDate, @PathVariable Date endDate) {
+        LOGGER.debug("find payment by Date({})", beginDate, endDate);
         return paymentService.findByDate(beginDate, endDate);
     }
 

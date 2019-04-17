@@ -1,19 +1,16 @@
 package com.epam.courses.paycom.service;
 
-import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.stub.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,6 +43,16 @@ public class PaymentServiceImplTest {
         List<PaymentStub> payments = paymentService.findAllStubs();
         assertNotNull(payments);
     }
+
+    @Test
+    void findByDate() {
+        Date beginDate = java.sql.Date.valueOf("2019-03-10");
+        Date endDate = java.sql.Date.valueOf ("2019-03-11");
+        long countAll = paymentService.findAll().size();
+        long countByDate = paymentService.findByDate(beginDate, endDate).size();
+        assert countAll == countByDate;
+    }
+
 
     @Test
     void findById() {

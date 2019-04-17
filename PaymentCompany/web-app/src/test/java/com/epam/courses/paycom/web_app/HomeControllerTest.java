@@ -1,7 +1,5 @@
 package com.epam.courses.paycom.web_app;
 
-
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
 
-public class HelloControllerTest {
+class HomeControllerTest {
+
     @Autowired
     private WebApplicationContext wac;
 
@@ -32,14 +31,12 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void hello() throws Exception {
+    public void home() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/hello").param("name", "Java")
+                MockMvcRequestBuilders.get("/")
         ).andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<script src=\"/resources/static/js/jquery.min.js\"></script>")))
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<h1>Hello Java!</h1>")))
+                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("main-page"))
         ;
     }
 }

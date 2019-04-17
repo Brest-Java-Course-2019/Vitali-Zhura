@@ -1,8 +1,10 @@
 package com.epam.courses.paycom.stub;
 
+
 import java.util.Date;
 
 public class PaymentStub {
+
 
     private Integer id;
 
@@ -85,9 +87,11 @@ public class PaymentStub {
         return payDate;
     }
 
+
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
     }
+
 
     public PaymentStub payDate(Date payDate) {
         this.payDate = payDate;

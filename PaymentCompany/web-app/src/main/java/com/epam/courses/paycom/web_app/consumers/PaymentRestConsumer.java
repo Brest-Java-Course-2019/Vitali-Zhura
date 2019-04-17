@@ -4,6 +4,9 @@ import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.stub.PaymentInfo;
 import com.epam.courses.paycom.service.PaymentService;
 import com.epam.courses.paycom.stub.PaymentStub;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +53,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public  List<PaymentStub> findAllStubs() {
         LOGGER.debug("findAllStubs({})");
-        ResponseEntity<Payment> responseEntity = restTemplate.getForEntity(url + "/stubs", Payment.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/stub", List.class);
         return (List<PaymentStub>) responseEntity.getBody();
     }
 

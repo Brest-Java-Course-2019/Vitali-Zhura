@@ -19,7 +19,7 @@
     <link rel="stylesheet"
           href="../../resources/static/js/bootstrap.min.js"
           th:href="@{/resources/static/js/bootstrap.min.js}">
-    <title>add company</title>
+    <title>add payment</title>
 </head>
 <body style ="background-color: #CEF6F5;">
 
@@ -33,58 +33,60 @@
         </li>
     </ul>
 </div>
-<div style="margin-left: 5%;"><h2>
-    <span th:text="${isNew} ? 'Add new company' : 'Edit company'">Edit company</span></h2>
+<div style="margin-left: 5%;">
+    <h2><span>Make payment</span></h2>
     <ul class="nav justify-content-begin">
         <li class="nav-item btn btn-primary">
             <a href="companies.html"
                th:href="@{/companies}"
-               th:onclick="@{document.forms['companyForm'].submit(); return false;}"
-               class="text-white">Save</a>
+               th:onclick="@{document.forms['paymentForm'].submit(); return false;}"
+               class="text-white">Apply</a>
         </li>
     </ul>
 </div>
 <br>
-<section id="company">
-<div style="width: 600px; margin-left: 5%;">
-    <form id="companyForm"
-          th:object="${company}"
-          action="companies.html"
-          th:action="@{${#httpServletRequest.servletPath}}"
-          th:method="@{post}">
+<section id="payment">
+    <div style="width: 600px; margin-left: 5%;">
+        <form id="paymentForm"
+              th:object="${payment}"
+              action="payments.html"
+              th:action="@{${#httpServletRequest.servletPath}}"
+              th:method="@{post}">
 
-        <input id="field_companyId"
-               type="hidden"
-               th:field="*{companyId}">
 
-    <div class="form-group">
-        <label for="formGroupExampleInput1">Enter company account</label>
-        <input type="text"
-               class="form-control"
-               th:class="${#fields.hasErrors('companyAccount')} ? 'form-control is-invalid' : 'form-control'"
-               id="formGroupExampleInput1"
-               th:field="*{companyAccount}">
-        <div th:if="${#fields.hasErrors('companyAccount')}"
-             class="invalid-feedback"
-             th:errors="*{companyAccount}">[errors]</div>
+            <input id="field_paymentId"
+                   type="hidden"
+                   th:field="*{paymentId}">
+
+            <div class="form-group">
+                <label for="formGroupExampleInput1">Enter company account</label>
+                <input type="text"
+                       class="form-control"
+                       th:class="${#fields.hasErrors('companyAccount')} ? 'form-control is-invalid' : 'form-control'"
+                       id="formGroupExampleInput1"
+                       th:field="*{companyAccount}">
+                <div th:if="${#fields.hasErrors('companyAccount')}"
+                     class="invalid-feedback"
+                     th:errors="*{companyAccount}">[errors]</div>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Enter payer name</label>
+                <input type="text"
+                       class="form-control"
+                       id="formGroupExampleInput2"
+                       th:field="*{payerName}">
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput3">Enter payment amount</label>
+                <input type="text"
+                       class="form-control"
+                       id="formGroupExampleInput3"
+                       th:field="*{paymentSum}">
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="formGroupExampleInput2">Enter company name</label>
-        <input type="text"
-               class="form-control"
-               id="formGroupExampleInput2"
-               th:field="*{companyName}">
-    </div>
-
-        <div class="form-group">
-            <label for="formGroupExampleInput3">Enter company UNP</label>
-            <input type="text"
-                   class="form-control"
-                   id="formGroupExampleInput3"
-                   th:field="*{companyUNP}">
-        </div>
-</form>
-</div>
 </section>
 <script src="../../resources/static/js/jquery.min.js"
         th:src="@{/resources/static/js/jquery.min.js}"></script>

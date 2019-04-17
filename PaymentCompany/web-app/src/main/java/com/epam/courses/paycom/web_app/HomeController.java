@@ -16,6 +16,8 @@ public class HomeController {
      */
     @GetMapping(value = "/")
     public String defaultPageRedirect() {
-        return "redirect:companies";
+        return "redirect:main-page";
     }
+
+
 }

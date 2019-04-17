@@ -39,7 +39,7 @@ public class CompanyRestConsumer implements CompanyService{
     @Override
     public Company findByAccount(String account) {
         LOGGER.debug("findByAccount({})", account);
-        ResponseEntity<Company> responseEntity = restTemplate.getForEntity(url + "/account", Company.class);
+        ResponseEntity<Company> responseEntity = restTemplate.getForEntity(url + "/account/" + account, Company.class);
         return responseEntity.getBody();
     }
 
