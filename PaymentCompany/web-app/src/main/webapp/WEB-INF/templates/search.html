@@ -33,18 +33,22 @@
 <body style ="background-color: #CEF6F5;">
 
 <nav class="alert"  style ="background-color: #0174DF;" role="alert">
-    <ul class="nav nav-pills nav justify-content-space-around">
+    <ul class="nav nav-pills">
         <li class="nav-item btn btn-info">
-            <a href="main-page.html" class="text-white">  Payment  </a>
+            <a href="payments.html"
+               th:href="@{/payments}"
+               class="text-white"> Payments </a>
         </li>
         <li class="nav-item btn btn-secondary">
-            <a href="#" class="text-white">Companies</a>
+            <a href="companies.html"
+               th:href="@{/companies}"
+               class="text-white">Companies</a>
         </li>
     </ul>
 </nav>
 
 <div class="container">
-    <h1 th:text="'Choose' + ${name1} + '!'">Hello sample</h1>
+    <h1 th:text="'Create' + ' ' + ${name1}">Hello sample</h1>
 </div>
 
 <form  id = "your_form" class="alert alert-primary mx-auto" style="width: 500px;" onsubmit="yourFunction()">

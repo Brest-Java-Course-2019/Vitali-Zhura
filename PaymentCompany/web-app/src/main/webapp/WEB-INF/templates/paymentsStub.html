@@ -25,10 +25,14 @@
 <div class="alert"  style ="background-color: #0174DF;" role="alert">
     <ul class="nav nav-pills">
         <li class="nav-item btn btn-info">
-            <a href="main-page.html" class="text-white">  Payment  </a>
+            <a href="payments.html"
+               th:href="@{/payments}"
+               class="text-white"> Payments </a>
         </li>
         <li class="nav-item btn btn-secondary">
-            <a href="#" class="text-white">Companies</a>
+            <a href="companies.html"
+               th:href="@{/companies}"
+               class="text-white">Companies</a>
         </li>
     </ul>
 </div>
@@ -36,7 +40,7 @@
 
 <section id="payments">
     <div class="col px-md-5" th:if="not ${paymentsStub.isEmpty()}">
-        <h1 align = "Left">Payments</h1>
+        <h1 align = "Left">Cancel payment</h1>
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -55,7 +59,7 @@
                 <td th:text="${stub.company}">company</td>
                 <td th:text="${stub.payer}">payer</td>
                 <td th:text="${stub.sum}">sum</td>
-                <td th:text="${stub.payDate}">date</td>
+                <td th:text="${#dates.format(stub.payDate, 'yyyy-MM-dd HH:mm:ss')}">date</td>
                 <td>
                     <span data-toggle="modal"
                           data-target="#deleteDialog"
@@ -65,7 +69,7 @@
                title="Cancel payment"
                data-toggle="tooltip"
                data-placement="top">
-                <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-window-close-o fa-2x" aria-hidden="true"></i>
 
             </a>
             </span>

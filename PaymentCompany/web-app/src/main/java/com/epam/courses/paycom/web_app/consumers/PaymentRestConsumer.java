@@ -66,7 +66,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public List<Payment> findByDate(Date beginDate, Date endDate) {
         LOGGER.debug("findByDate()");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/date", List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/"+ beginDate + "/" + endDate, List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 

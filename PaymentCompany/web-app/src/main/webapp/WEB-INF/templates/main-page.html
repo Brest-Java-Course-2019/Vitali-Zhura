@@ -25,15 +25,19 @@
 <div class="alert"  style ="background-color: #0174DF;" role="alert">
     <ul class="nav nav-pills">
         <li class="nav-item btn btn-info">
-            <a href="#" class="text-white">  Платежи  </a>
+            <a href="payments.html"
+               th:href="@{/payments}"
+               class="text-white"> Payments </a>
         </li>
         <li class="nav-item btn btn-secondary">
-            <a href="company.html" class="text-white">Организации</a>
+            <a href="companies.html"
+               th:href="@{/companies}"
+               class="text-white">Companies</a>
         </li>
     </ul>
 </div>
 <div class="container">
-    <h1 th:text="'Choose' + ${name} + '!'">Hello sample</h1>
+    <h1 th:text="'Choose' + ' ' + ${name}">Hello sample</h1>
 </div>
 
 <form class="alert alert-primary ml-5 mr-5 float:left" role="alert" style ="width: 300px; float:left;">
@@ -43,8 +47,8 @@
            th:href="@{/payment}">Make payment</a>
     </p><br></br>
     <p class="nav-item btn btn-primary btn-lg">
-        <a href="payments.html" class="text-white"
-           th:href="@{/payments}">Cancel payment</a>
+        <a href="paymentsStub.html" class="text-white"
+           th:href="@{/paymentsStub}">Cancel payment</a>
     </p><br></br>
     <p class="nav-item btn btn-success btn-lg">
         <a href="search.html" class="text-white"

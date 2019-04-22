@@ -26,10 +26,14 @@
 <div class="alert"  style ="background-color: #0174DF;" role="alert">
     <ul class="nav nav-pills">
         <li class="nav-item btn btn-info">
-            <a href="main-page.html" class="text-white">  Payment  </a>
+            <a href="payments.html"
+               th:href="@{/payments}"
+               class="text-white"> Payments </a>
         </li>
         <li class="nav-item btn btn-secondary">
-            <a href="#" class="text-white">Companies</a>
+            <a href="companies.html"
+               th:href="@{/companies}"
+               class="text-white">Companies</a>
         </li>
     </ul>
 </div>
@@ -40,7 +44,7 @@
             <a href="companies.html"
                th:href="@{/companies}"
                th:onclick="@{document.forms['companyForm'].submit(); return false;}"
-               class="text-white">Save</a>
+               class="text-white btn-lg">Save</a>
         </li>
     </ul>
 </div>

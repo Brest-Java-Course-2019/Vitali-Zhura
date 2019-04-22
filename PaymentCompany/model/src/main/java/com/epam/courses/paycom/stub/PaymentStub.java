@@ -1,6 +1,16 @@
 package com.epam.courses.paycom.stub;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PaymentStub {
@@ -82,6 +92,7 @@ public class PaymentStub {
         this.company = company;
         return this;
     }
+
 
     public Date getPayDate() {
         return payDate;

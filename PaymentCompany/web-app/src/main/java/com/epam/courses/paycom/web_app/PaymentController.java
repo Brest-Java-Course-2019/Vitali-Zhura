@@ -1,19 +1,11 @@
 package com.epam.courses.paycom.web_app;
 
-import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.model.Payment;
-import com.epam.courses.paycom.stub.PaymentStub;
-import com.epam.courses.paycom.stub.PaymentInfo;
-
 import com.epam.courses.paycom.service.PaymentService;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -19,7 +19,7 @@ public class HelloController {
     }
 
     @GetMapping(value = "/search")
-    public String hello1(@RequestParam(value = "name1", required = false, defaultValue = "action1") String name1,
+    public String hello1(@RequestParam(value = "name1", required = false, defaultValue = "report") String name1,
                         Model model) {
         model.addAttribute("name1", name1);
         return "search";
