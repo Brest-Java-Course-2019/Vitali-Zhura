@@ -73,12 +73,12 @@ public class CompanyRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyAccount", Matchers.is("account0")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyName", Matchers.is("name0")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyUNP", Matchers.is(111)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].companyUNP", Matchers.is("111111110")))
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyAccount", Matchers.is("account1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyName", Matchers.is("name1")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyUNP", Matchers.is(112)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].companyUNP", Matchers.is("111111111")))
         ;
 
         Mockito.verify(companyService, Mockito.times(ONE)).findAll();
@@ -96,7 +96,7 @@ public class CompanyRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyAccount", Matchers.is("account1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyName", Matchers.is("name1")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.companyUNP", Matchers.is(112)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.companyUNP", Matchers.is("111111111")))
         ;
 
         Mockito.verify(companyService, Mockito.times(ONE)).findById(anyInt());
@@ -114,7 +114,7 @@ public class CompanyRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyAccount", Matchers.is("account1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyName", Matchers.is("name1")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.companyUNP", Matchers.is(112)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.companyUNP", Matchers.is("111111111")))
         ;
 
         Mockito.verify(companyService, Mockito.times(ONE)).findByAccount(anyString());
@@ -167,7 +167,7 @@ public class CompanyRestControllerTest {
         company.setCompanyId(index);
         company.setCompanyAccount("account" + index);
         company.setCompanyName("name" + index);
-        company.setCompanyUNP(111 + index);
+        company.setCompanyUNP("11111111" + index);
         return company;
     }
 }

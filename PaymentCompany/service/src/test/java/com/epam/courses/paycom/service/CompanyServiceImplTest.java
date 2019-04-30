@@ -52,7 +52,7 @@ class CompanyServiceImplTest {
         Company company = new Company();
         company.setCompanyAccount("account");
         company.setCompanyName("name");
-        company.setCompanyUNP(124004567);
+        company.setCompanyUNP("124004567");
         return company;
     }
 
@@ -87,7 +87,7 @@ class CompanyServiceImplTest {
         Company afterUpdate = companyService.findAll().get(1);
         afterUpdate.setCompanyAccount("new Account");
         afterUpdate.setCompanyName("new Name");
-        afterUpdate.setCompanyUNP(1111);
+        afterUpdate.setCompanyUNP("111111111");
         companyService.update(afterUpdate);
         assertEquals(companyService.findAll().get(1).getCompanyId(), afterUpdate.getCompanyId());
     }

@@ -51,11 +51,11 @@ public class PaymentControllerTest {
         Mockito.when(paymentService.findAllStubs()).thenReturn(Arrays.asList(createStub(ZERO), createStub(ONE)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments")
+                MockMvcRequestBuilders.get("/paymentsStub")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.view().name("payments"))
+                .andExpect(MockMvcResultMatchers.view().name("paymentsStub"))
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.
                         containsString("<title>payments</title>")))
         ;
@@ -84,10 +84,10 @@ public class PaymentControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/payment")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("paymentId", "1")
+                        .param("paymentId", "6")
                         .param("payerName", "name")
                         .param("paymentSum", "100")
-                        .param("companyAccount", "account")
+                        .param("companyAccount", "BY27BLBB34325630287478004008")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/payments"))
@@ -103,7 +103,7 @@ public class PaymentControllerTest {
                 MockMvcRequestBuilders.get("/payment/1/delete")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/payments"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/paymentsStub"))
         ;
 
         Mockito.verify(paymentService, Mockito.times(ONE)).cancel(Mockito.anyInt());
@@ -116,7 +116,7 @@ public class PaymentControllerTest {
         payment.setPaymentId(index);
         payment.setPayerName("name" + index);
         payment.setPaymentSum(100 + index);
-        payment.setCompanyAccount("account" + index);
+        payment.setCompanyAccount("BY27BLBB3432563028747800400" + index);
         payment.setPaymentDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));
         return payment;
     }
@@ -126,7 +126,7 @@ public class PaymentControllerTest {
         paymentStub.setId(index);
         paymentStub.setPayer("payer" + index);
         paymentStub.setSum(100 + index);
-        paymentStub.setAccount("account" + index);
+        paymentStub.setAccount("BY27BLBB3432563028747800400" + index);
         paymentStub.setCompany("company" + index);
         paymentStub.setPayDate(java.sql.Timestamp.valueOf("2019-03-10 12:12:30"));
         return paymentStub;

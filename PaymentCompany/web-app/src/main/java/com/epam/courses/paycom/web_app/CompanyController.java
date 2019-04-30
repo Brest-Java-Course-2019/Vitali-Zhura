@@ -2,20 +2,20 @@ package com.epam.courses.paycom.web_app;
 
 import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.service.CompanyService;
+import com.epam.courses.paycom.web_app.validators.CompanyValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -23,7 +23,11 @@ public class CompanyController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
 
+    @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    CompanyValidator companyValidator;
 
     public CompanyController (CompanyService companyService) {
         this.companyService = companyService;
@@ -59,9 +63,15 @@ public class CompanyController {
     }
 
     @PostMapping(value = "/company")
-    public String addCompany( Company company) {
+    public String addCompany(@Valid Company company,
+                                    BindingResult result) {
         LOGGER.debug("addCompany({})", company);
-            companyService.add(company);
+        companyValidator.validate(company, result);
+        if (result.hasErrors()) {
+            return "company";
+        } else {
+            this.companyService.add(company);
+        }
             return "redirect:/companies";
     }
 

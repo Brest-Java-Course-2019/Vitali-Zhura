@@ -57,6 +57,10 @@
           th:action="@{${#httpServletRequest.servletPath}}"
           th:method="@{post}">
 
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <p>Please fix errors below:</p>
+        </div>
+
         <input id="field_companyId"
                type="hidden"
                th:field="*{companyId}">
@@ -76,16 +80,24 @@
         <label for="formGroupExampleInput2">Enter company name</label>
         <input type="text"
                class="form-control"
+               th:class="${#fields.hasErrors('companyName')} ? 'form-control is-invalid' : 'form-control'"
                id="formGroupExampleInput2"
                th:field="*{companyName}">
+        <div th:if="${#fields.hasErrors('companyName')}"
+             class="invalid-feedback"
+             th:errors="*{companyName}">[errors]</div>
     </div>
 
         <div class="form-group">
             <label for="formGroupExampleInput3">Enter company UNP</label>
             <input type="text"
                    class="form-control"
+                   th:class="${#fields.hasErrors('companyUNP')} ? 'form-control is-invalid' : 'form-control'"
                    id="formGroupExampleInput3"
                    th:field="*{companyUNP}">
+            <div th:if="${#fields.hasErrors('companyUNP')}"
+                 class="invalid-feedback"
+                 th:errors="*{companyUNP}">[errors]</div>
         </div>
 </form>
 </div>

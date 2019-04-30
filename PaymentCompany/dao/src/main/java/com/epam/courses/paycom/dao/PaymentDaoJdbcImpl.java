@@ -75,7 +75,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
                                         .sum(resultSet.getInt(PAYMENT_SUM))
                                         .account(resultSet.getString(COMPANY_ACCOUNT))
                                         .company(resultSet.getString(COMPANY_NAME))
-                                        .payDate((resultSet.getTimestamp(PAYMENT_DATE))));
+                                        .payDate(resultSet.getTimestamp(PAYMENT_DATE)));
         return paymentList.stream();
     }
 

@@ -1,7 +1,7 @@
-INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (1, 'BY27BLBB34325630287478004008', 'Prestizh', 200342345);
-INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (2, 'BY27BLBB37899630217778006009', 'BrestVodokanal', 340098760);
-INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (3, 'BY27BLBB38800630217478006888', 'IdealCompany', 230095600);
-INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (4, 'BY27BLBB37899638899498006080', 'GefestBrest', 248960087);
+INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (1, 'BY27BLBB34325630287478004008', 'Prestizh', '200342345');
+INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (2, 'BY27BLBB37899630217778006009', 'BrestVodokanal', '340098760');
+INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (3, 'BY27BLBB38800630217478006888', 'IdealCompany', '230095600');
+INSERT INTO company (companyId, companyAccount, companyName, companyUNP) VALUES (4, 'BY27BLBB37899638899498006080', 'GefestBrest', '248960087');
 
 
 INSERT INTO payment (paymentId, payerName, paymentSum, companyAccount, paymentDate) VALUES (1, 'Ivanov', 230,'BY27BLBB34325630287478004008', '2019-03-10 12:12:30');

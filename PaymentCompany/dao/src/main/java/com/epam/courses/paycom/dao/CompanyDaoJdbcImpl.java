@@ -117,7 +117,7 @@ public class CompanyDaoJdbcImpl implements CompanyDao{
             company.setCompanyId(resultSet.getInt(COMPANY_ID));
             company.setCompanyAccount(resultSet.getString(COMPANY_ACCOUNT));
             company.setCompanyName(resultSet.getString(COMPANY_NAME));
-            company.setCompanyUNP(resultSet.getInt(COMPANY_UNP));
+            company.setCompanyUNP(resultSet.getString(COMPANY_UNP));
 
             return company;
         }

@@ -79,7 +79,7 @@ public class CompanyServiceMockTest {
         company.setCompanyId(5);
         company.setCompanyAccount("account");
         company.setCompanyName("name");
-        company.setCompanyUNP(111111111);
+        company.setCompanyUNP("111111111");
         return company;
     }
 

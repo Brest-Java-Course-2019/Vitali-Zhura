@@ -103,8 +103,8 @@ public class CompanyControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/company")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("companyId", "1")
-                        .param("companyAccount", "account")
+                        .param("companyId", "5")
+                        .param("companyAccount", "BY27BLBB37899638899498006077")
                         .param("companyName", "newcompany")
                         .param("companyUNP", "234000766")
         ).andDo(MockMvcResultHandlers.print())
@@ -153,7 +153,7 @@ public class CompanyControllerTest {
         company.setCompanyId(index);
         company.setCompanyAccount("account" + index);
         company.setCompanyName("name" + index);
-        company.setCompanyUNP(111 + index);
+        company.setCompanyUNP("11111111" + index);
         return company;
     }
 

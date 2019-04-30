@@ -25,7 +25,7 @@
 
         private static final String NEW_COMPANY_ACCOUNT = "New Company Account";
         private static final String NEW_COMPANY_NAME = "New Company Name";
-        private static final Integer NEW_COMPANY_UNP = 100000000;
+        private static final String NEW_COMPANY_UNP = "100000000";
         private static final long TOTAL_COUNT = 4;
 
         @Autowired
@@ -63,7 +63,7 @@
             () -> assertEquals(company.getCompanyId().intValue(), 1),
             () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004008"),
             () -> assertEquals(company.getCompanyName(), "Prestizh"),
-            () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
+            () -> assertEquals(company.getCompanyUNP(), "200342345"));
         }
 
         @Test
@@ -75,7 +75,7 @@
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
                     () -> assertEquals(company.getCompanyAccount(), "BY27BLBB34325630287478004009"),
                     () -> assertEquals(company.getCompanyName(), "PrestizhProm"),
-                    () -> assertEquals(company.getCompanyUNP().intValue(), 200342346)));
+                    () -> assertEquals(company.getCompanyUNP(), "200342346")));
         }
 
         @Test
@@ -85,7 +85,7 @@
             assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 1),
                     () -> assertEquals(company.getCompanyName(), "Prestizh"),
-                    () -> assertEquals(company.getCompanyUNP().intValue(), 200342345));
+                    () -> assertEquals(company.getCompanyUNP(), "200342345"));
         }
 
         @Test
@@ -96,7 +96,7 @@
             assertAll(
                     () -> assertEquals(company.getCompanyId().intValue(), 2),
                     () -> assertEquals(company.getCompanyName(), "PrestizhProm"),
-                    () -> assertEquals(company.getCompanyUNP().intValue(), 20034234)));
+                    () -> assertEquals(company.getCompanyUNP(), "20034234")));
         }
 
 

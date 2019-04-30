@@ -38,6 +38,7 @@
         <jackson-databind.version>2.9.8</jackson-databind.version>
         <spring-jdbc.version>5.0.5.RELEASE</spring-jdbc.version>
         <spring-test.version>5.0.5.RELEASE</spring-test.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
         <h2.version>1.4.197</h2.version>
     </properties>
 
@@ -122,6 +123,11 @@
                 <artifactId>thymeleaf-spring5</artifactId>
                 <version>3.0.11.RELEASE</version>
             </dependency>
+                <dependency>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                    <version>${validation-api.version}</version>
+                </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>

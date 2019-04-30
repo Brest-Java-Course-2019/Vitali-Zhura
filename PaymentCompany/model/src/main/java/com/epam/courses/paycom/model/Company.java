@@ -9,7 +9,7 @@ public class Company {
 
     private String companyName;
 
-    private Integer companyUNP;
+    private String companyUNP;
 
 
     public Integer getCompanyId() {
@@ -36,11 +36,11 @@ public class Company {
         this.companyName = companyName;
     }
 
-    public Integer getCompanyUNP() {
+    public String getCompanyUNP() {
         return companyUNP;
     }
 
-    public void setCompanyUNP(Integer companyUNP) {
+    public void setCompanyUNP(String companyUNP) {
         this.companyUNP = companyUNP;
     }
 

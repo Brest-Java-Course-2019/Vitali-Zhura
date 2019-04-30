@@ -10,7 +10,9 @@ import org.springframework.validation.Validator;
 @Component
 public class CompanyValidator implements Validator {
 
-    public static final int COMPANY_ACCOUNT_MAX_SIZE = 255;
+    public static final int COMPANY_ACCOUNT_SIZE = 28;
+    public static final int COMPANY_NAME_MAX_SIZE = 255;
+    public static final int COMPANY_UNP_SIZE = 9;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -21,11 +23,29 @@ public class CompanyValidator implements Validator {
     public void validate(Object target, Errors errors) {
 
         ValidationUtils.rejectIfEmpty(errors, "companyAccount", "companyAccount.empty");
+        ValidationUtils.rejectIfEmpty(errors, "companyName", "companyName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "companyUNP", "companyUNP.empty");
         Company company = (Company) target;
 
         if (StringUtils.hasLength(company.getCompanyAccount())
-                && company.getCompanyAccount().length() > COMPANY_ACCOUNT_MAX_SIZE) {
-            errors.rejectValue("companyAccount", "companyAccount.maxSize255");
+                && company.getCompanyAccount().length() != COMPANY_ACCOUNT_SIZE) {
+            errors.rejectValue("companyAccount", "companyAccount.Size28");
         }
+
+        if (StringUtils.hasLength(company.getCompanyName())
+                && company.getCompanyName().length() > COMPANY_NAME_MAX_SIZE) {
+            errors.rejectValue("companyName", "companyName.maxSize255");
+        }
+
+        if (StringUtils.hasLength(company.getCompanyUNP())
+                && company.getCompanyUNP().length() != COMPANY_UNP_SIZE)   {
+            errors.rejectValue("companyUNP", "companyUNP.Size9");
+        }
+
+        if (!company.getCompanyUNP().matches("[0-9]+")) {
+            errors.rejectValue("companyUNP", "companyUNP.Number");
+        }
+
     }
+
 }

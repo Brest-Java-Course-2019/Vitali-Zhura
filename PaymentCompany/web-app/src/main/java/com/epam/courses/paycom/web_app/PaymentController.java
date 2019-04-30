@@ -2,23 +2,30 @@ package com.epam.courses.paycom.web_app;
 
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.service.PaymentService;
+import com.epam.courses.paycom.web_app.validators.PaymentValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.sql.Date;
 
+import javax.validation.Valid;
 
 @Controller
 public class PaymentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
-
+    @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    PaymentValidator paymentValidator;
 
     public PaymentController (PaymentService paymentService) {
         this.paymentService = paymentService;
@@ -55,11 +62,18 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/payment")
-    public String addPayment( Payment payment) {
+    public String addPayment(@Valid Payment payment,
+                             BindingResult result) {
         LOGGER.debug("addPayment({})", payment);
-        paymentService.add(payment);
-        return "redirect:/paymentsStub";
+        paymentValidator.validate(payment, result);
+        if (result.hasErrors()) {
+            return "payment";
+        } else {
+            this.paymentService.add(payment);
+        }
+        return "redirect:/payments";
     }
+
 
     @GetMapping(value = "/payment/{id}")
     public String gotoEditPaymentPage(@PathVariable Integer id, Model model) {
@@ -68,7 +82,7 @@ public class PaymentController {
         Payment payment = paymentService.findById(id);
         model.addAttribute("payment", payment);
 
-        return "paymentStub";
+        return "payment";
     }
 
     @GetMapping(value = "/payment/{id}/delete")

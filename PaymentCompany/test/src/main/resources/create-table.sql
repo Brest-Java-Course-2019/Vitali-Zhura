@@ -6,7 +6,7 @@ CREATE TABLE company (
   companyId  INT NOT NULL AUTO_INCREMENT,
   companyAccount VARCHAR(255) NOT NULL UNIQUE,
   companyName VARCHAR(255) NOT NULL,
-  companyUNP INT NOT NULL
+  companyUNP VARCHAR(255) NOT NULL
 );
 
 -- payment
