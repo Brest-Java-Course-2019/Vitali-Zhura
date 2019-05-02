@@ -23,7 +23,6 @@ public class PaymentValidator implements Validator{
 
         ValidationUtils.rejectIfEmpty(errors, "companyAccount", "companyAccount.empty");
         ValidationUtils.rejectIfEmpty(errors, "payerName", "payerName.empty");
-        ValidationUtils.rejectIfEmpty(errors, "paymentSum", "paymentSum.empty");
         Payment payment = (Payment) target;
 
         if (StringUtils.hasLength(payment.getCompanyAccount())
@@ -36,14 +35,10 @@ public class PaymentValidator implements Validator{
             errors.rejectValue("payerName", "payerName.maxSize255");
         }
 
-        if (StringUtils.hasLength(payment.getPaymentSum().toString())
-                && payment.getPaymentSum() < 0) {
+        if (payment.getPaymentSum()==null || payment.getPaymentSum() <= 0) {
             errors.rejectValue("paymentSum", "paymentSum.Value");
         }
 
-        if (!payment.getPaymentSum().toString().matches("[0-9]+")) {
-            errors.rejectValue("paymentSum", "paymentSum.Number");
-        }
 
     }
 }

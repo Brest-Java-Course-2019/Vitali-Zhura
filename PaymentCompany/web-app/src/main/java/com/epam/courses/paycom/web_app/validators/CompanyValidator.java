@@ -41,9 +41,12 @@ public class CompanyValidator implements Validator {
                 && company.getCompanyUNP().length() != COMPANY_UNP_SIZE)   {
             errors.rejectValue("companyUNP", "companyUNP.Size9");
         }
+        else {
 
-        if (!company.getCompanyUNP().matches("[0-9]+")) {
-            errors.rejectValue("companyUNP", "companyUNP.Number");
+        if (StringUtils.hasLength(company.getCompanyUNP())
+               && (!company.getCompanyUNP().matches("[0-9]+"))) {
+            errors.rejectValue("companyUNP", "companyUNP.Number");}
+
         }
 
     }
