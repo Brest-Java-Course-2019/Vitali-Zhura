@@ -12,7 +12,7 @@
    install git</br>
    install maven</p>
 
- <h2>Installing<h2>
+ <h2>Installing</h2>
  <p>Download project from github</p></br>
  <p>clone https://github.com/Brest-Java-Course-2019/Vitali-Zhura.git</br>
 

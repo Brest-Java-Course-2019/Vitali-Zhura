@@ -3,7 +3,6 @@ package com.epam.courses.paycom.rest_app;
 import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.service.CompanyService;
 import com.epam.courses.paycom.stub.CompanyStub;
-import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
