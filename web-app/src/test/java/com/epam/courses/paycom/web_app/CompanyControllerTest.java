@@ -40,7 +40,6 @@ public class CompanyControllerTest {
     private int ZERO = 0;
     private int ONE = 1;
 
-
     @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -122,7 +121,7 @@ public class CompanyControllerTest {
                 MockMvcRequestBuilders.post("/company/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("companyId", "1")
-                        .param("companyAccount", "account")
+                        .param("companyAccount", "BY27BLBB38800630217478006888")
                         .param("companyName", "newcompany")
                         .param("companyUNP", "234000766")
         ).andDo(MockMvcResultHandlers.print())

@@ -13,6 +13,7 @@ public class CompanyValidator implements Validator {
     public static final int COMPANY_ACCOUNT_SIZE = 28;
     public static final int COMPANY_NAME_MAX_SIZE = 255;
     public static final int COMPANY_UNP_SIZE = 9;
+    public static final String  NUMBER = "[0-9]+";
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -42,12 +43,9 @@ public class CompanyValidator implements Validator {
             errors.rejectValue("companyUNP", "companyUNP.Size9");
         }
 
-
         if (StringUtils.hasLength(company.getCompanyUNP())
-               && (!company.getCompanyUNP().matches("[0-9]+"))) {
+               && !company.getCompanyUNP().matches(NUMBER)) {
             errors.rejectValue("companyUNP", "companyUNP.Number");
         }
-
     }
-
 }

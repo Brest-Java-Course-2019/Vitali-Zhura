@@ -62,7 +62,7 @@
 
 <section id="companies">
 <div class="col px-md-5" th:if="not ${companies.isEmpty()}">
-<h1 align = "Left">Companies</h1>
+    <h1><span th:text="${isNew} ? 'Companies' : 'Company'">Companies</span></h1>
 <table class="table table-striped table-sm">
     <thead>
     <tr>

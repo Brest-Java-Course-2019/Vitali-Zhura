@@ -10,8 +10,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PaymentServiceImpl implements PaymentService{
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
+public class PaymentServiceImpl implements PaymentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger (CompanyServiceImpl.class);
 
     private PaymentDao dao;
 

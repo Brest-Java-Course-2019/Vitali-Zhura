@@ -6,7 +6,7 @@
 
 <p>Test Java project to study technologies such as git, maven, spring, thymeleaf, bootstpap and others.</p>
 
-<h2>Prerequisites<h2>
+<h2>Prerequisites</h2>
 
 <p>install jdk8<br />
    install git</br>
@@ -20,7 +20,7 @@
  <p>Goto Project folder and execute</p>
  <p>mvn clean install</p>
 
- <h2>Server test<h2>
+ <h2>Server test</h2>
  <p>For server test jetty plugin can be used</p>
  <p>mvn jetty:run</p>
 

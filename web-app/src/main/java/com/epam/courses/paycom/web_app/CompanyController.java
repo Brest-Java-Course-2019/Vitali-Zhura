@@ -17,7 +17,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-
 @Controller
 public class CompanyController {
 
@@ -32,7 +31,6 @@ public class CompanyController {
     public CompanyController (CompanyService companyService) {
         this.companyService = companyService;
     }
-
 
     @GetMapping(value = "/companies")
     public final String companies(Model model) {
@@ -49,14 +47,12 @@ public class CompanyController {
         return "companiesStub";
     }
 
-
     @GetMapping(value = "/companies/{account}")
     public final String companiesFind(@PathVariable String account, Model model) {
         LOGGER.debug("findByAccount({}, {})", account, model);
         model.addAttribute("isNew", false);
         List<Company> companies = new ArrayList<Company>();
         companies.add(companyService.findByAccount(account));
-
         model.addAttribute("companies", companies);
         return "companies";
     }
@@ -88,15 +84,19 @@ public class CompanyController {
         model.addAttribute("isNew", false);
         Company company = companyService.findById(id);
         model.addAttribute("company", company);
-
         return "company";
     }
 
-
     @PostMapping(value = "/company/{id}")
-    public String updateCompany(Company company) {
+    public String updateCompany(@Valid Company company,
+                                BindingResult result) {
         LOGGER.debug("updateCompany({})", company);
-        companyService.update(company);
+        companyValidator.validate(company, result);
+        if (result.hasErrors()) {
+            return "company";
+        } else {
+            this.companyService.update(company);
+        }
         return "redirect:/companies";
     }
 
@@ -106,5 +106,4 @@ public class CompanyController {
         companyService.delete(id);
         return "redirect:/companies";
     }
-
 }
