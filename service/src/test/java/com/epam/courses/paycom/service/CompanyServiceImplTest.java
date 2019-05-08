@@ -2,14 +2,11 @@ package com.epam.courses.paycom.service;
 
 import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.stub.CompanyStub;
-import com.epam.courses.paycom.stub.PaymentStub;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
@@ -50,15 +47,6 @@ class CompanyServiceImplTest {
         assert count == newCount;
     }
 
-
-    private Company create() {
-        Company company = new Company();
-        company.setCompanyAccount("account");
-        company.setCompanyName("name");
-        company.setCompanyUNP("124004567");
-        return company;
-    }
-
     @Test
     void findById() {
 
@@ -84,7 +72,6 @@ class CompanyServiceImplTest {
         assertEquals(secondCompany.getCompanyUNP(), company.getCompanyUNP());
     }
 
-
     @Test
     void update() {
         Company afterUpdate = companyService.findAll().get(1);
@@ -105,5 +92,13 @@ class CompanyServiceImplTest {
         long newCount = companyService.findAll().size();
         LOGGER.debug("Count after: {}", newCount);
         assert count == newCount+1;
+    }
+
+    private Company create() {
+        Company company = new Company();
+        company.setCompanyAccount("account");
+        company.setCompanyName("name");
+        company.setCompanyUNP("124004567");
+        return company;
     }
 }

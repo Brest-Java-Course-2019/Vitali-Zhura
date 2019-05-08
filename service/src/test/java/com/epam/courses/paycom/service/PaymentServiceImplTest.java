@@ -76,7 +76,7 @@ public class PaymentServiceImplTest {
         Payment payment = new Payment();
         payment.setPayerName("payer");
         payment.setPaymentSum(100);
-        payment.setCompanyAccount("BY27BLBB37899630217778006009");
+        payment.setCompanyAccount("BY27BLBB34325630287478004008");
         return payment;
     }
 
