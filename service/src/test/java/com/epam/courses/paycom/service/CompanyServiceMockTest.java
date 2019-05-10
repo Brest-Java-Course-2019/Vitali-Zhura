@@ -22,7 +22,6 @@ public class CompanyServiceMockTest {
     private CompanyService service;
 
     private static final int ONE = 1;
-
     private static Company FIRST_COMPANY;
     private static CompanyStub FIRST_COMPANYSTUB;
 
@@ -64,7 +63,6 @@ public class CompanyServiceMockTest {
         Mockito.verify(dao, Mockito.times(ONE)).findAllStubs();
         Mockito.verifyNoMoreInteractions(dao);
     }
-
 
     @Test
     public void findById() {

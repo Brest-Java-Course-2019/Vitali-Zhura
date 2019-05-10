@@ -45,8 +45,6 @@ public class CompanyControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-
-
     @Test
     public void findAll() throws Exception {
         Mockito.when(companyService.findAll()).thenReturn(Arrays.asList(create(ZERO), create(ONE)));
@@ -60,7 +58,7 @@ public class CompanyControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.
                         containsString("<title>companies</title>")))
         ;
-        Mockito.verify(companyService, Mockito.times(1)).findAll();
+        Mockito.verify(companyService, Mockito.times(ONE)).findAll();
     }
 
     @Test
@@ -94,7 +92,6 @@ public class CompanyControllerTest {
         ;
         Mockito.verify(companyService, Mockito.times(ONE)).findByAccount(anyString());
     }
-
 
     @Test
     public void addCompany() throws Exception {
@@ -132,7 +129,6 @@ public class CompanyControllerTest {
         Mockito.verify(companyService, Mockito.times(ONE)).update(any());
     }
 
-
     @Test
     void DeleteCompany() throws Exception {
 
@@ -145,7 +141,6 @@ public class CompanyControllerTest {
 
         Mockito.verify(companyService, Mockito.times(ONE)).delete(Mockito.anyInt());
     }
-
 
     private Company create(int index) {
         Company company = new Company();

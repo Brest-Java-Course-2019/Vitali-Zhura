@@ -4,6 +4,7 @@ import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.stub.PaymentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -101,7 +102,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
         LOGGER.debug("add({})", payment);
         return Optional.of(payment)
                 .map(this::insertPayment)
-                .orElseThrow(() -> new IllegalArgumentException("Company with the same name already exsists in DB."));
+                .orElseThrow(() -> new DataAccessException("Payment uses not existing company.") {
+                });
     }
 
     private Optional<Payment> insertPayment(Payment payment) {

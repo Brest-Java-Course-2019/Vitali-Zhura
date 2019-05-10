@@ -52,21 +52,23 @@
 
 <div class="container">
     <h1 th:text="'Create' + ' ' + ${name1}">Hello sample</h1>
+
 </div>
 
-<form  id = "your_form" class="alert alert-primary mx-auto" style="width: 500px;" onsubmit="yourFunction()">
+<form  id = "your_form" name="form1" class="alert alert-primary mx-auto" style="width: 500px;" onsubmit="yourFunction(); return IsEmpty();">
 
     <div class="form-group" id="testDIV">
         <div class="container" style="width: 300px;">
             <div class="hero-unit btn-lg">
                 <label>Enter start date</label>
-                <input  type="text"   name="startdate" id="pickyDate"/>
+                <input  type="date"  name="startdate" id="pickyDate"/>
             </div>
             <div class="hero-unit btn-lg">
                 <label>Enter end date</label>
-                <input  type="text"  name="enddate" id="pickyDate1"/>
+                <input  type="date" name="enddate" id="pickyDate1"/>
             </div>
             <div class="hero-unit btn-lg">
+
             <button type="submit" class="btn btn-success btn-lg btn-block">Apply</button>
             </div>
         </div>
@@ -86,24 +88,29 @@
 <script src="../../resources/static/css/datepicker.css"
         th:src="@{/resources/static/css/datepicker.css}"></script>
 
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#pickyDate').datepicker({
-            format: "yyyy-mm-dd"
-        });
-        $('#pickyDate1').datepicker({
-            format: "yyyy-mm-dd"
-        });
-    });
-</script>
-
 <script>
     function yourFunction(){
     var action_src = "http://localhost:8090/payments/" + document.getElementsByName("startdate")[0].value +"/"+ document.getElementsByName("enddate")[0].value;
 
     your_form.action = action_src ;
+}
+</script>
+
+<script>
+    function IsEmpty(){
+  if(document.forms['form1'].startdate.value === "" ||
+  document.forms['form1'].enddate.value === "")
+  {
+    alert("empty");
+    return false;
+  }
+
+  if(document.forms['form1'].startdate.value > document.forms['form1'].enddate.value)
+  {
+    alert("start date must be less end date");
+    return false;
+  }
+    return true;
 }
 </script>
 

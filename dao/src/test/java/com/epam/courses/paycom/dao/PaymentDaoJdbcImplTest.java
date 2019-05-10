@@ -5,8 +5,6 @@ import com.epam.courses.paycom.stub.PaymentStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.opentest4j.AssertionFailedError;
-import org.opentest4j.MultipleFailuresError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,10 +25,9 @@ public class PaymentDaoJdbcImplTest {
     private static final String NEW_PAYER_NAME = "Sidoruk";
     private static final Integer NEW_PAYMENT_SUM = 2000;
     private static final String NEW_COMPANY_ACCOUNT = "BY27BLBB34325630287478004008";
+    private static final String COMPANY_ACCOUNT_FALSE = "BY27BLBB34325630287478004005";
     private static final long TOTAL_COUNT = 5;
     private static final long ONE_DAY_COUNT = 3;
-
-
 
     @Autowired
     private PaymentDao paymentDao;
@@ -49,28 +46,11 @@ public class PaymentDaoJdbcImplTest {
     }
 
     @Test
-    void incorrectFindAllStubs() {
-        Stream<PaymentStub>stub = paymentDao.findAllStubs();
-        assertNotNull(stub);
-        Assertions.assertThrows(AssertionFailedError.class, () -> {
-        assertTrue(stub.count() == 0);});
-    }
-
-    @Test
     void findAllCheckCount() {
 
         Stream<Payment> payments = paymentDao.findAll();
         assertNotNull(payments);
         assertEquals(payments.count(), TOTAL_COUNT);
-    }
-
-    @Test
-    void incorrectFindAllCheckCount() {
-
-        Stream<Payment> payments = paymentDao.findAll();
-        assertNotNull(payments);
-        Assertions.assertThrows(AssertionFailedError.class, () -> {
-        assertEquals(payments.count(), TOTAL_COUNT-1);});
     }
 
     @Test
@@ -86,19 +66,6 @@ public class PaymentDaoJdbcImplTest {
     }
 
     @Test
-    void incorrectFindById() {
-        Payment payment = paymentDao.findById(1).get();
-        assertNotNull(payment);
-        Assertions.assertThrows(MultipleFailuresError.class, () ->
-        assertAll(
-                () -> assertEquals(payment.getPaymentId().intValue(), 1),
-                () -> assertEquals(payment.getPayerName(), "Svepovo"),
-                () -> assertEquals(payment.getPaymentSum().intValue(), 231),
-                () -> assertEquals(payment.getCompanyAccount(), "BY27BLBB34325630287478004004"),
-                () -> assertEquals(payment.getPaymentDate().toString(), "2019-03-10 12:12:30.0")));
-    }
-
-    @Test
     void findByDate() {
 
         Date beginDate = java.sql.Date.valueOf("2019-03-10");
@@ -107,18 +74,6 @@ public class PaymentDaoJdbcImplTest {
         Stream<Payment> payments= paymentDao.findByDate(beginDate, endDate);
         assertNotNull(payments);
         assertEquals(payments.count(), ONE_DAY_COUNT);
-    }
-
-    @Test
-    void incorrectFindByDate() {
-
-        Date beginDate = java.sql.Date.valueOf("2019-03-10");
-        Date endDate = java.sql.Date.valueOf ("2019-03-10");
-
-        Stream<Payment> payments= paymentDao.findByDate(beginDate, endDate);
-        assertNotNull(payments);
-        Assertions.assertThrows(AssertionFailedError.class, () -> {
-        assertEquals(payments.count(), TOTAL_COUNT);});
     }
 
     @Test
@@ -134,7 +89,19 @@ public class PaymentDaoJdbcImplTest {
 
         Stream<Payment> companiesAfterInsert = paymentDao.findAll();
         assertEquals(1, companiesAfterInsert.count() - companiesBeforeInsert.count());
+    }
 
+    @Test
+    void createPaymentWithNotExistCompany() {
+
+        Payment payment = new Payment();
+        payment.setPayerName(NEW_PAYER_NAME);
+        payment.setPaymentSum(NEW_PAYMENT_SUM);
+        payment.setCompanyAccount(COMPANY_ACCOUNT_FALSE);
+
+        Assertions.assertThrows(DataAccessException.class, () -> {
+                    paymentDao.add(payment).get();
+                });
     }
 
      @Test
@@ -145,15 +112,4 @@ public class PaymentDaoJdbcImplTest {
          Stream<Payment> paymentsAfterDelete = paymentDao.findAll();
          assertEquals(1, paymentsBeforeDelete.count() - paymentsAfterDelete.count());
      }
-
-    @Test
-    void incorrectCancel () {
-        Stream<Payment> payments = paymentDao.findAll();
-        Payment payment = paymentDao.findAll().findFirst().get();
-        paymentDao.cancel(payment.getPaymentId());
-
-        Assertions.assertThrows(DataAccessException.class, () -> {
-            paymentDao.findById(payment.getPaymentId());
-        });
-    }
 }

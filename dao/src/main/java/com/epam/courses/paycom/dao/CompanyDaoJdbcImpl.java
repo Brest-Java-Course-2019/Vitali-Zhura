@@ -26,8 +26,6 @@ public class CompanyDaoJdbcImpl implements CompanyDao{
     private static final String COMPANY_ACCOUNT = "companyAccount";
     private static final String COMPANY_NAME = "companyName";
     private static final String COMPANY_UNP = "companyUNP";
-    private static final String CHECK_COUNT_NAME = "select count(companyId) from company " +
-            "where lower(companyAccount) = lower(:companyAccount)";
     private static final String INSERT = "insert into company (companyAccount, companyName, companyUNP) " +
             "values (:companyAccount, :companyName, :companyUNP)";
     private static final String UPDATE = "update company set companyAccount = :companyAccount, " +
@@ -98,23 +96,8 @@ public class CompanyDaoJdbcImpl implements CompanyDao{
     public Optional<Company> add(Company company) {
         LOGGER.debug("add({})", company);
         return Optional.of(company)
-                .filter(this::isNameUnique)
                 .map(this::insertCompany)
                 .orElseThrow(() -> new IllegalArgumentException("Company with the same name already exsists in DB."));
-    }
-
-    @Override
-    public Optional<Company> addCompany(Company company) {
-        LOGGER.debug("add({})", company);
-        return Optional.of(company)
-                .map(this::insertCompany)
-                .orElseThrow(() -> new IllegalArgumentException("Company with the same name already exsists in DB."));
-    }
-
-    private boolean isNameUnique(Company company) {
-        return namedParameterJdbcTemplate.queryForObject(CHECK_COUNT_NAME,
-                new MapSqlParameterSource(COMPANY_ACCOUNT, company.getCompanyAccount()),
-                Integer.class) == 0;
     }
 
     private Optional<Company> insertCompany(Company company) {
