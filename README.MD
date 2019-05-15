@@ -22,10 +22,14 @@
 
  <h2>Server test</h2>
  <p>For server test jetty plugin can be used</p>
- <p>mvn jetty:run</p>
+ <p>For rest-api and web-api</br>
+    mvn jetty:run</p>
 
  <h2>Deploy application on Tomcat<h2>
-
+ <p> Install apache tomcat</br>
+     In project it is nessesary to copy war files rest-api and web-api</br>
+     Then paste to folder tomcat/webapp</br>
+     After that enter in browser http://localhost:8080/web-app</p>
  <h2>Author</h2>
  <p>Vitali Zhura</p>
 
