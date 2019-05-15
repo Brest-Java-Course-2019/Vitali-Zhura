@@ -25,7 +25,7 @@
  <p>For rest-api and web-api</br>
     mvn jetty:run</p>
 
- <h2>Deploy application on Tomcat<h2>
+ <h2>Deploy application on Tomcat</h2>
  <p> Install apache tomcat</br>
      In project it is nessesary to copy war files rest-api and web-api</br>
      Then paste to folder tomcat/webapp</br>
